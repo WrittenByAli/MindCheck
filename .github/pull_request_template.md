@@ -19,6 +19,7 @@ Please ensure all of the following checks pass before requesting review:
 - [ ] **Flake8 Lint**: Zero blocking lint errors via `flake8 src/ tests/`.
 - [ ] **Type Annotations**: Functions include type hints and docstrings.
 - [ ] **No Large Artifacts**: No large raw `.pgn` files or heavy model checkpoints committed.
+- [ ] **Authorship Integrity**: No Claude or AI assistant listed as contributor or co-author in commits or trailers.
 - [ ] **CLAUDE.md & Task Alignment**: Implementation strictly follows the subtask specification.
 
 ---

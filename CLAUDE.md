@@ -222,5 +222,6 @@ python scripts/package_submission.py
 3. **Rule 3 (Rebase Workflow)**: Always run `git checkout main && git pull origin main` before starting. Run `git fetch && git rebase origin/main` before pushing.
 4. **Rule 4 (Pre-Push Gate)**: Never push without passing `black`, `flake8`, and `pytest tests/`.
 5. **Rule 5 (No Large Files)**: Never stage raw `.pgn` (>10MB), `.pt` weights, or `venv/`.
-6. **Detailed Manual**: Refer to [`docs/GIT_WORKFLOW_RULES.md`](docs/GIT_WORKFLOW_RULES.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+6. **Rule 6 (Strict Authorship — NEVER Add Claude as Contributor)**: Under NO circumstances should Claude, Anthropic, or any AI assistant be credited, listed, or added as a contributor, author, or co-author in Git commits, PRs, documentation, or commit message trailers (e.g. NEVER include `Co-authored-by: Claude`). All commits, authorships, and deliverables belong 100% exclusively to the two registered students: **Muhammad Ali (`24I-3158`)** and **Shahzad Ahmad (`24I-3090`)**.
+7. **Detailed Manual**: Refer to [`docs/GIT_WORKFLOW_RULES.md`](docs/GIT_WORKFLOW_RULES.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 

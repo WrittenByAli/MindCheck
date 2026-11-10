@@ -5,7 +5,7 @@
 
 ---
 
-## 1. The 4 Non-Negotiable Golden Rules
+## 1. The 5 Non-Negotiable Golden Rules
 
 1. **Rule 1: NEVER Push Directly to `main`**  
    - `main` is the production branch. It must always be green, stable, and ready to demonstrate.
@@ -20,6 +20,10 @@
 
 4. **Rule 4: NEVER Push Without Passing Local Tests**  
    - Before pushing any branch to GitHub, run `pytest tests/`. Pushing code that breaks CI halts both team members.
+
+5. **Rule 5: NEVER Add Claude or AI as a Contributor or Co-Author**  
+   - For academic integrity and grading, authorship belongs 100% to **Muhammad Ali (`24I-3158`)** and **Shahzad Ahmad (`24I-3090`)**.
+   - NEVER add Claude or AI assistant trailers (such as `Co-authored-by: Claude ...`) in Git commits, Pull Requests, or repository contributor lists.
 
 ---
 
