@@ -20,10 +20,6 @@ Welcome to the **MindCheck** developer guide for **Group 29** (**Shahzad Ahmad**
 4. **Rule 4: NEVER Push Without Passing Local Tests**  
    - Before pushing any branch to GitHub, run `pytest tests/`. Pushing code that breaks CI halts both team members.
 
-5. **Rule 5: NEVER Add Claude or AI as a Contributor or Co-Author**  
-   - Academic credit and repository authorship belong strictly to **Muhammad Ali (`24I-3158`)** and **Shahzad Ahmad (`24I-3090`)**.
-   - Do NOT add Claude, Anthropic, or AI tools as contributors, authors, or commit message trailers (e.g. NEVER use `Co-authored-by: Claude`).
-
 ---
 
 ## 2. Daily Step-by-Step Subtask Implementation Flow

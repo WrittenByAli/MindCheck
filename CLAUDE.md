@@ -37,7 +37,7 @@ streamlit run src/ui/app.py
 Any subtask is complete only when its tests pass: `pytest tests/test_<module>.py -v` at 100% pass rate, with real (non-fabricated) output as evidence.
 
 ## Git safety
-Never commit without being asked. Never push, force-push, or amend published commits without explicit instruction. Never add an AI agent as a GitHub contributor/collaborator.
+Never commit without being asked. Never push, force-push, or amend published commits without explicit instruction.
 
 ## Task execution
 1. Read the subtask spec in `tasks/phase_*/subtasks/SUBTASK_X_Y_Z_*.md`.
