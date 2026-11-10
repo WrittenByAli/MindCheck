@@ -1,0 +1,91 @@
+# MindCheck Configuration File
+# AI2002 Artificial Intelligence Semester Project - Group 29
+
+project:
+  name: "MindCheck"
+  version: "1.0.0"
+  path: "Path A - Software-Based"
+  team:
+    - name: "Shahzad Ahmad"
+      roll_no: "24I-3090"
+      role: "Lead: Data & Neural Core"
+    - name: "Muhammad Ali"
+      roll_no: "24I-3158"
+      role: "Lead: Deployment, UI & Temporal Tracking"
+
+dataset:
+  raw_pgn_path: "data/raw/lichess_elite_subset.pgn"
+  processed_dir: "data/processed/"
+  manifest_path: "data/raw/manifest.json"
+  annotations_path: "data/annotations/"
+  min_game_plies: 20
+  min_player_elo: 2200
+  max_positions_per_game: 25
+  history_plies: 8
+  lookahead_plies: 8
+  splits:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+
+classes:
+  taxonomy:
+    - id: 0
+      name: "K_STORM"
+      description: "Kingside Pawn Storm"
+    - id: 1
+      name: "Q_EXP"
+      description: "Queenside Expansion"
+    - id: 2
+      name: "OUTPOST"
+      description: "Outpost Occupation"
+    - id: 3
+      name: "ROOK_FILE"
+      description: "Rook-File Buildup"
+    - id: 4
+      name: "CHAIN_UNDERMINE"
+      description: "Pawn-Chain Undermining"
+    - id: 5
+      name: "NO_PLAN"
+      description: "No Dominant Plan / Uncommitted"
+
+model:
+  name: "HistoryChessResNet"
+  history_length: 8
+  planes_per_ply: 14
+  in_channels: 112
+  num_classes: 6
+  channels: 64
+  num_blocks: 4
+  dropout: 0.20
+  checkpoint_dir: "models/checkpoints/"
+  best_checkpoint_path: "models/checkpoints/best_resnet.pt"
+  onnx_export_path: "models/checkpoints/mindcheck_resnet.onnx"
+
+training:
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  max_epochs: 30
+  early_stopping_patience: 5
+  seed: 42
+  device: "auto"  # "cuda", "cpu", or "auto"
+  label_smoothing: 0.05
+  num_workers: 2
+
+tracking:
+  hysteresis_activation_count: 2
+  decay_count: 3
+  min_plan_confidence: 0.45
+
+fusion:
+  alpha: 0.70  # Weight for neural probabilities vs symbolic rules
+  abstention_threshold: 0.40
+  margin_threshold: 0.10
+
+ui:
+  theme: "dark"
+  default_game_index: 0
+  stockfish_enabled_default: true
+  stockfish_depth: 12
+  stockfish_time_limit: 0.2

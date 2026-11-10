@@ -1,0 +1,96 @@
+# ==============================================================================
+# MindCheck .gitignore
+# AI2002 Semester Project - Group 29
+# ==============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.obj
+*.o
+*.pyd
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Distribution / Packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+*.ipynb
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# OS Specific
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Streamlit Local Runtime
+.streamlit/secrets.toml
+
+# Heavy Raw Data (Keep samples and annotations)
+data/raw/*.pgn
+data/raw/*.bz2
+data/raw/*.zst
+data/raw/*.tar.gz
+!data/raw/manifest.json
+data/processed/*.parquet
+data/processed/*.h5
+data/processed/*.npy
+!data/processed/.gitkeep
+
+# Heavy Model Checkpoints (Keep .gitkeep; upload releases or checkpoints to Drive / Releases)
+models/checkpoints/*.pt
+models/checkpoints/*.onnx
+!models/checkpoints/.gitkeep
+
+# Temporary / Scratch Scripts & Logs
+*.log
+experiments/logs/
+scratch/
+temp/
+tmp/
