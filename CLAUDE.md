@@ -212,3 +212,15 @@ python scripts/package_submission.py
 4. **Implement Code**: Write clean, modular, typed Python code with comprehensive docstrings.
 5. **Write Unit Tests**: Add test cases to `tests/`.
 6. **Execute & Verify**: Run `pytest tests/test_...` to guarantee 100% pass rate before marking subtask complete.
+
+---
+
+## 7. Git Push & Pull Rules for Group 29
+
+1. **Rule 1 (Protected Main)**: NEVER push directly to `main`. Always branch: `feat/subtask-<id>-<description>`.
+2. **Rule 2 (No Force Push)**: NEVER run `git push -f` on `main` or shared branches.
+3. **Rule 3 (Rebase Workflow)**: Always run `git checkout main && git pull origin main` before starting. Run `git fetch && git rebase origin/main` before pushing.
+4. **Rule 4 (Pre-Push Gate)**: Never push without passing `black`, `flake8`, and `pytest tests/`.
+5. **Rule 5 (No Large Files)**: Never stage raw `.pgn` (>10MB), `.pt` weights, or `venv/`.
+6. **Detailed Manual**: Refer to [`docs/GIT_WORKFLOW_RULES.md`](docs/GIT_WORKFLOW_RULES.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+

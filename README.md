@@ -59,7 +59,18 @@ d:\AI_Project\
 │   ├── 05_ARCHITECTURE_AND_PIPELINE_DESIGN.md # End-to-end tensor schemas & ResNet architecture
 │   ├── 06_CHESS_STRATEGY_TAXONOMY_AND_RUBRIC.md # Operational definitions & human annotation rules
 │   ├── 07_INDEPENDENT_EVALUATION_PROTOCOL.md # 250-position test protocol, Cohen's Kappa & bootstrap
-│   └── 08_STREAMLIT_UI_UX_SPECIFICATION.md # Frontend wireframes, SVG overlays & timeline views
+│   ├── 08_STREAMLIT_UI_UX_SPECIFICATION.md # Frontend wireframes, SVG overlays & timeline views
+│   └── GIT_WORKFLOW_RULES.md               # Git push & pull rules and peer review guidelines
+│
+├── .github/                                # CI/CD Workflows & Templates
+│   ├── workflows/ci.yml                    # Automated GitHub Actions test & lint matrix
+│   ├── ISSUE_TEMPLATE/                     # Structured subtask & bug templates
+│   └── pull_request_template.md            # Peer review PR checklist
+│
+├── CONTRIBUTING.md                         # Developer onboarding & git workflow
+├── pyproject.toml                          # Black, isort, and PyTest configuration
+├── .editorconfig                           # Indentation & encoding consistency
+├── .flake8                                 # Linting configuration
 │
 ├── tasks/                                  # Actionable Markdown Files for Claude Code Execution
 │   ├── phase_1_core_ai/                    # Phase 1: Data, Rules, Tensors & Model Training
