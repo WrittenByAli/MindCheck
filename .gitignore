@@ -76,6 +76,8 @@ desktop.ini
 data/raw/*.pgn
 data/raw/*.bz2
 data/raw/*.zst
+data/raw/*.zip
+data/raw/*.7z
 data/raw/*.tar.gz
 !data/raw/manifest.json
 data/processed/*.parquet
