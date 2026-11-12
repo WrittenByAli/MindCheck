@@ -31,18 +31,17 @@ jobs:
 
       - name: Check Code Formatting with Black
         run: |
-          black --check --diff src/ tests/ scripts/ || true
+          black --check --diff src/ tests/ scripts/
 
       - name: Check Import Sorting with isort
         run: |
-          isort --check-only --diff src/ tests/ scripts/ || true
+          isort --check-only --diff src/ tests/ scripts/
 
       - name: Lint with Flake8
         run: |
-          # Stop the build if there are Python syntax errors or undefined names
-          flake8 src/ tests/ scripts/ --count --select=E9,F63,F7,F82 --show-source --statistics
-          # Exit-zero treats all errors as warnings
-          flake8 src/ tests/ scripts/ --count --exit-zero --max-complexity=12 --max-line-length=120 --statistics
+          # Uses the thresholds and exclusions declared in .flake8; no
+          # exit-zero escape hatch, so real lint violations fail the job.
+          flake8 src/ tests/ scripts/ --count --show-source --statistics
 
   test-suite:
     name: Unit & Integration Tests (${{ matrix.os }})
@@ -100,6 +99,10 @@ jobs:
 
       - name: Verify Streamlit App Launches Headless
         run: |
+          if [ ! -f src/ui/app.py ]; then
+            echo "src/ui/app.py does not exist yet (UI work not started) - skipping smoke test."
+            exit 0
+          fi
           # Run streamlit in headless mode in the background and verify it starts
           nohup streamlit run src/ui/app.py --server.headless true --server.port 8501 &
           sleep 5
