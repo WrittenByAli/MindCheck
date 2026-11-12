@@ -222,11 +222,12 @@ class AppConfig(_StrictModel):
 
     @field_validator("project", mode="before")
     @classmethod
-    def _reject_missing_section(cls, value: object) -> object:
-        # Pydantic already rejects missing sections, but this keeps the error
-        # message pointed at the section rather than the whole payload.
+    def _reject_null_section(cls, value: object) -> object:
+        # Only catches an explicit `project: null` in the YAML. A fully
+        # absent 'project' key is already rejected by Pydantic's own
+        # "field required" error before this validator would run.
         if value is None:
-            raise ValueError("Missing required 'project' section in config.")
+            raise ValueError("'project' section in config must not be null.")
         return value
 
 

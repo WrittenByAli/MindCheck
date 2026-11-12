@@ -26,10 +26,20 @@ import chess.pgn
 
 logger = logging.getLogger(__name__)
 
-__all__ = ["StreamingPGNParser"]
+__all__ = ["StreamingPGNParser", "parse_elo"]
 
 # Variant header values that denote ordinary standard chess.
 _STANDARD_VARIANTS = {"", "standard", "chess", "from position"}
+
+
+def parse_elo(raw: Optional[str]) -> Optional[int]:
+    """Parse a PGN Elo header value, returning ``None`` if absent/invalid."""
+    if raw is None:
+        return None
+    try:
+        return int(raw)
+    except (TypeError, ValueError):
+        return None
 
 
 class StreamingPGNParser:
@@ -85,8 +95,11 @@ class StreamingPGNParser:
             try:
                 game = chess.pgn.read_game(handle)
             except (ValueError, RuntimeError) as exc:  # pragma: no cover - rare
-                logger.debug("Skipping game: reader error: %s", exc)
-                continue
+                # The stream position after a reader exception is unreliable,
+                # so retrying here could spin forever on the same offset.
+                # Treat it as end-of-stream rather than risk an infinite loop.
+                logger.warning("Stopping PGN stream: reader error: %s", exc)
+                break
             if game is None:
                 break
             if self.is_valid_game(game):
@@ -142,15 +155,17 @@ class StreamingPGNParser:
 
     @staticmethod
     def _parse_elo(raw: Optional[str]) -> Optional[int]:
-        if raw is None:
-            return None
-        try:
-            return int(raw)
-        except (TypeError, ValueError):
-            return None
+        return parse_elo(raw)
 
     def _count_and_check_moves(self, game: chess.pgn.Game) -> tuple[int, bool]:
-        """Replay the mainline, counting plies and verifying every move is legal."""
+        """Replay the mainline, counting plies.
+
+        ``game.mainline_moves()`` only yields moves the PGN reader already
+        pushed successfully while parsing (anything illegal would have been
+        recorded in ``game.errors``, which callers check before reaching
+        here), so this just replays them to get the ply count. The push is
+        still guarded defensively in case of an unexpected inconsistency.
+        """
         try:
             board = game.board()
         except (ValueError, KeyError):  # pragma: no cover - malformed SetUp/FEN
@@ -158,9 +173,10 @@ class StreamingPGNParser:
 
         ply = 0
         for move in game.mainline_moves():
-            if not board.is_legal(move):
+            try:
+                board.push(move)
+            except AssertionError:  # pragma: no cover - defensive
                 return ply, False
-            board.push(move)
             ply += 1
         return ply, True
 

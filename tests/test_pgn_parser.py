@@ -121,3 +121,17 @@ def test_missing_file_raises(tmp_path: Path) -> None:
     parser = StreamingPGNParser()
     with pytest.raises(FileNotFoundError):
         list(parser.stream_games(tmp_path / "nope.pgn"))
+
+
+# --------------------------------------------------------------------------- #
+# Reader-error handling                                                       #
+# --------------------------------------------------------------------------- #
+def test_reader_exception_stops_stream_instead_of_hanging(monkeypatch: pytest.MonkeyPatch) -> None:
+    """A read_game() exception must terminate the stream, not retry forever."""
+
+    def _always_raises(_handle: object) -> None:
+        raise ValueError("simulated corrupt stream offset")
+
+    monkeypatch.setattr(chess.pgn, "read_game", _always_raises)
+    parser = StreamingPGNParser()
+    assert list(parser.iter_games(io.StringIO("anything"))) == []

@@ -34,10 +34,13 @@ import hashlib
 import io
 import json
 import sys
+import urllib.parse
 import urllib.request
 import zipfile
 from pathlib import Path
 from typing import Iterator
+
+_DOWNLOAD_TIMEOUT_SECONDS = 30
 
 # Allow running as a plain script (`python scripts/...`) by adding repo root.
 _REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -50,19 +53,14 @@ DEFAULT_OUTPUT = _REPO_ROOT / "data" / "raw" / "lichess_elite_subset.pgn"
 DEFAULT_MANIFEST = _REPO_ROOT / "data" / "raw" / "manifest.json"
 
 
-def _sha256(path: Path, chunk_size: int = 1 << 20) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(chunk_size), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def download(url: str, dest: Path) -> Path:
     """Stream-download ``url`` to ``dest`` (no whole-file buffering)."""
     dest.parent.mkdir(parents=True, exist_ok=True)
     print(f"Downloading {url} -> {dest} ...")
-    with urllib.request.urlopen(url) as response, dest.open("wb") as out:  # noqa: S310
+    with (
+        urllib.request.urlopen(url, timeout=_DOWNLOAD_TIMEOUT_SECONDS) as response,  # noqa: S310
+        dest.open("wb") as out,
+    ):
         while True:
             chunk = response.read(1 << 20)
             if not chunk:
@@ -91,21 +89,29 @@ def _iter_source_games(parser: StreamingPGNParser, source: Path, max_games: int)
         yield from parser.stream_games(source, max_games=max_games)
 
 
-def subsample(source: Path, output: Path, target_games: int, min_elo: int, min_plies: int) -> int:
-    """Write up to ``target_games`` validated games from ``source`` to ``output``."""
+def subsample(
+    source: Path, output: Path, target_games: int, min_elo: int, min_plies: int
+) -> tuple[int, str]:
+    """Write up to ``target_games`` validated games from ``source`` to ``output``.
+
+    Returns the number of games written and the output file's sha256 digest,
+    computed incrementally so the file isn't read a second time afterward.
+    """
     parser = StreamingPGNParser(min_plies=min_plies, min_elo=min_elo)
     output.parent.mkdir(parents=True, exist_ok=True)
 
     written = 0
-    with output.open("w", encoding="utf-8") as out:
+    digest = hashlib.sha256()
+    with output.open("wb") as out:
         for game in _iter_source_games(parser, source, target_games):
-            out.write(str(game))
-            out.write("\n\n")
+            chunk = (str(game) + "\n\n").encode("utf-8")
+            out.write(chunk)
+            digest.update(chunk)
             written += 1
             if written % 500 == 0:
                 print(f"  ... {written} games written")
     print(f"Wrote {written} validated games to {output}.")
-    return written
+    return written, digest.hexdigest()
 
 
 def write_manifest(
@@ -114,6 +120,7 @@ def write_manifest(
     source_url: str,
     total_games: int,
     min_elo: int,
+    sha256_checksum: str,
 ) -> None:
     manifest = {
         "archive_name": "Lichess Elite Database Subset",
@@ -123,7 +130,7 @@ def write_manifest(
         "min_elo": min_elo,
         "total_games": total_games,
         "license": "CC0 1.0 / Open Data",
-        "sha256_checksum": _sha256(output),
+        "sha256_checksum": sha256_checksum,
         "download_timestamp": _dt.datetime.now(_dt.timezone.utc).isoformat(),
     }
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
@@ -148,7 +155,8 @@ def main(argv: list[str] | None = None) -> int:
     raw_dir = _REPO_ROOT / "data" / "raw"
 
     if args.url:
-        filename = args.url.rsplit("/", 1)[-1] or "lichess_elite_download.pgn"
+        url_path = urllib.parse.urlparse(args.url).path
+        filename = url_path.rsplit("/", 1)[-1] or "lichess_elite_download.pgn"
         source = download(args.url, raw_dir / filename)
         source_url = args.url
     else:
@@ -157,12 +165,12 @@ def main(argv: list[str] | None = None) -> int:
             ap.error(f"--input file not found: {source}")
         source_url = f"local:{source.name}"
 
-    total = subsample(source, output, args.target_games, args.min_elo, args.min_plies)
+    total, checksum = subsample(source, output, args.target_games, args.min_elo, args.min_plies)
     if total == 0:
         print("WARNING: no games passed the filters; check the source archive.", file=sys.stderr)
         return 1
 
-    write_manifest(Path(args.manifest), output, source_url, total, args.min_elo)
+    write_manifest(Path(args.manifest), output, source_url, total, args.min_elo, checksum)
     return 0
 
 

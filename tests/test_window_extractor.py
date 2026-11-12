@@ -108,6 +108,17 @@ def test_metadata_fields_populated() -> None:
     assert w.result == "1-0"
 
 
+def test_start_ply_zero_yields_initial_position() -> None:
+    game, _ = build_game(24)
+    windows = list(extract_windows(game, start_ply=0))
+    assert windows[0].ply_index == 0
+    assert windows[0].last_move is None
+    assert windows[0].last_move_san is None
+    assert windows[0].board_history == [windows[0].current_board]
+    assert windows[0].current_board.fen() == chess.STARTING_FEN
+    assert [w.ply_index for w in windows] == list(range(0, 25))
+
+
 def test_custom_history_length() -> None:
     game, _ = build_game(24)
     windows = list(extract_windows(game, history_length=4))

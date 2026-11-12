@@ -24,6 +24,8 @@ from typing import Iterator, List, Optional
 import chess
 import chess.pgn
 
+from src.data.pgn_parser import parse_elo
+
 __all__ = ["PositionWindow", "extract_windows", "default_game_id"]
 
 # Opening plies are dominated by book theory; strategic plans form later.
@@ -68,15 +70,6 @@ class PositionWindow:
         return self.board_history[-1]
 
 
-def _parse_elo(raw: Optional[str]) -> Optional[int]:
-    if raw is None:
-        return None
-    try:
-        return int(raw)
-    except (TypeError, ValueError):
-        return None
-
-
 def default_game_id(game: chess.pgn.Game) -> str:
     """Derive a stable game id from PGN headers."""
     headers = game.headers
@@ -117,13 +110,28 @@ def extract_windows(
         raise ValueError(f"start_ply must be >= 0, got {start_ply}.")
 
     gid = game_id if game_id is not None else default_game_id(game)
-    white_elo = _parse_elo(game.headers.get("WhiteElo"))
-    black_elo = _parse_elo(game.headers.get("BlackElo"))
+    white_elo = parse_elo(game.headers.get("WhiteElo"))
+    black_elo = parse_elo(game.headers.get("BlackElo"))
     result = game.headers.get("Result", "*")
 
     board = game.board()
     # Rolling buffer of the most recent `history_length` board snapshots.
-    history: deque[chess.Board] = deque([board.copy()], maxlen=history_length)
+    # stack=False: only piece placement is needed downstream, not undo history.
+    history: deque[chess.Board] = deque([board.copy(stack=False)], maxlen=history_length)
+
+    if start_ply == 0:
+        yield PositionWindow(
+            game_id=gid,
+            ply_index=0,
+            turn=board.turn,
+            board_history=list(history),
+            last_move=None,
+            last_move_san=None,
+            is_check=board.is_check(),
+            white_elo=white_elo,
+            black_elo=black_elo,
+            result=result,
+        )
 
     ply = 0
     for move in game.mainline_moves():
@@ -131,7 +139,7 @@ def extract_windows(
         san = board.san(move)
         board.push(move)
         ply += 1
-        history.append(board.copy())
+        history.append(board.copy(stack=False))
 
         if ply >= start_ply:
             yield PositionWindow(
