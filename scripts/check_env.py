@@ -1,4 +1,5 @@
 """Verify that all MindCheck dependencies are importable and report their versions."""
+
 import importlib
 import sys
 
