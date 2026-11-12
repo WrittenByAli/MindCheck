@@ -12,11 +12,13 @@ P2_SUBTASKS_DIR = BASE_DIR / "tasks" / "phase_2_deployment_and_evaluation" / "su
 P1_SUBTASKS_DIR.mkdir(parents=True, exist_ok=True)
 P2_SUBTASKS_DIR.mkdir(parents=True, exist_ok=True)
 
+
 def write_subtask_file(directory: Path, filename: str, content: str):
     filepath = directory / filename
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(content.strip() + "\n")
     print(f"Generated: {filepath.name}")
+
 
 # ==============================================================================
 # PHASE 1 SUBTASKS DEFINITIONS
@@ -27,7 +29,11 @@ phase_1_subtasks = [
     (
         "SUBTASK_1_1_1_DEPENDENCY_SPECIFICATION.md",
         "Subtask 1.1.1: Pinned Dependency Specification & Verification",
-        "1.1", "Phase 1", "Milestone 1", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.1",
+        "Phase 1",
+        "Milestone 1",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Define all external library dependencies required by the system with exact compatible versions.",
         "Python 3.11+ interpreter installed on the host system.",
         "`requirements.txt` file at project root; successful pip installation log.",
@@ -51,12 +57,16 @@ phase_1_subtasks = [
 2. Verify package compatibility and write `requirements.txt`.
 3. Create `scripts/check_env.py` that verifies imports of all libraries and prints versions.
 4. Run environment check script.""",
-        "- `python scripts/check_env.py` executes without `ImportError` or version conflicts.\n- PyTorch correctly detects CPU or CUDA backend."
+        "- `python scripts/check_env.py` executes without `ImportError` or version conflicts.\n- PyTorch correctly detects CPU or CUDA backend.",
     ),
     (
         "SUBTASK_1_1_2_DIRECTORY_SCAFFOLDING.md",
         "Subtask 1.1.2: Repository Directory Scaffolding & Package Layout",
-        "1.1", "Phase 1", "Milestone 1", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.1",
+        "Phase 1",
+        "Milestone 1",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Establish modular Python package structure with proper `__init__.py` files across all modules.",
         "Root directory `d:/AI_Project`.",
         "`src/` subdirectories (`data`, `rules`, `models`, `tracking`, `ui`, `utils`), `tests/`, `config/`, `data/`.",
@@ -72,12 +82,16 @@ phase_1_subtasks = [
         """1. Verify existence of all subdirectories.
 2. Create standard `__init__.py` files with descriptive docstrings.
 3. Verify that `python -c "import src.data, src.rules, src.models, src.tracking, src.ui, src.utils"` succeeds.""",
-        "- All packages import cleanly without syntax or import errors.\n- Directory tree conforms to project architectural guidelines."
+        "- All packages import cleanly without syntax or import errors.\n- Directory tree conforms to project architectural guidelines.",
     ),
     (
         "SUBTASK_1_1_3_CONFIGURATION_MANAGEMENT.md",
         "Subtask 1.1.3: Type-Safe Configuration Schema with Pydantic & YAML",
-        "1.1", "Phase 1", "Milestone 1", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.1",
+        "Phase 1",
+        "Milestone 1",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Create a centralized, type-safe runtime configuration system using PyYAML and Pydantic v2.",
         "`config/config.yaml` file containing all system parameters.",
         "`src/utils/config.py` defining Pydantic models `AppConfig`, `DatasetConfig`, `ModelConfig`, `TrainingConfig`, `TrackingConfig`, `FusionConfig`, `UIConfig`.",
@@ -96,14 +110,17 @@ phase_1_subtasks = [
 2. Implement schema loading and error handling for missing keys.
 3. Write `tests/test_config.py` testing config loading and default value fallbacks.
 4. Run `pytest tests/test_config.py`.""",
-        "- `load_config()` loads `config/config.yaml` into strongly-typed Pydantic model.\n- Invalid YAML structure or bad parameter types trigger clear validation errors."
+        "- `load_config()` loads `config/config.yaml` into strongly-typed Pydantic model.\n- Invalid YAML structure or bad parameter types trigger clear validation errors.",
     ),
-
     # Task 1.2
     (
         "SUBTASK_1_2_1_DATASET_ACQUISITION_MANIFEST.md",
         "Subtask 1.2.1: Dataset Source Acquisition & Selection Manifest",
-        "1.2", "Phase 1", "Milestone 2", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.2",
+        "Phase 1",
+        "Milestone 2",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Document public PGN archive source provenance, download/prepare high-rated master games, and create manifest.",
         "Public PGN source (Lichess Elite Database subset, games with White/Black Elo >= 2200).",
         "`data/raw/lichess_elite_subset.pgn` and `data/raw/manifest.json`.",
@@ -120,12 +137,16 @@ phase_1_subtasks = [
         """1. Create `scripts/download_sample_dataset.py` to fetch or assemble sample grandmaster PGN games.
 2. Generate `data/raw/manifest.json` with archive provenance.
 3. Validate that PGN file is readable by `chess.pgn`.""",
-        "- `data/raw/manifest.json` exists and validates against schema.\n- Raw PGN contains >= 500 valid master games."
+        "- `data/raw/manifest.json` exists and validates against schema.\n- Raw PGN contains >= 500 valid master games.",
     ),
     (
         "SUBTASK_1_2_2_STREAMING_PGN_PARSER.md",
         "Subtask 1.2.2: Memory-Efficient Streaming PGN Parser & Sanity Filter",
-        "1.2", "Phase 1", "Milestone 2", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.2",
+        "Phase 1",
+        "Milestone 2",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Build a streaming PGN reader that parses games iteratively with low memory consumption and filters out malformed games.",
         "Path to PGN file (`data/raw/lichess_elite_subset.pgn`).",
         "`src/data/pgn_parser.py` containing `StreamingPGNParser`.",
@@ -143,12 +164,16 @@ phase_1_subtasks = [
 2. Implement sanity filter checks (variant, ply count, rating, move legality).
 3. Write `tests/test_pgn_parser.py` with synthetic PGN strings (valid, malformed, non-standard, short).
 4. Run `pytest tests/test_pgn_parser.py`.""",
-        "- `StreamingPGNParser` yields only valid standard chess games with >= 20 plies.\n- Corrupted moves or non-standard variants are skipped with debug log warnings."
+        "- `StreamingPGNParser` yields only valid standard chess games with >= 20 plies.\n- Corrupted moves or non-standard variants are skipped with debug log warnings.",
     ),
     (
         "SUBTASK_1_2_3_SLIDING_WINDOW_EXTRACTOR.md",
         "Subtask 1.2.3: 8-Ply Sliding History Window Extractor",
-        "1.2", "Phase 1", "Milestone 2", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.2",
+        "Phase 1",
+        "Milestone 2",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Extract 8-half-move sliding windows across game plies for temporal feature encoding.",
         "`chess.pgn.Game` object.",
         "`src/data/window_extractor.py` returning `Iterator[PositionWindow]`.",
@@ -169,14 +194,17 @@ phase_1_subtasks = [
 2. Ensure board states in history are independent clones (`board.copy()`).
 3. Write `tests/test_window_extractor.py` verifying window length and correct ply sequencing.
 4. Run `pytest tests/test_window_extractor.py`.""",
-        "- Extracted windows always contain up to 8 sequential boards.\n- The final board in `board_history` matches the board state at `ply_index`."
+        "- Extracted windows always contain up to 8 sequential boards.\n- The final board in `board_history` matches the board state at `ply_index`.",
     ),
-
     # Task 1.3
     (
         "SUBTASK_1_3_1_BITBOARD_FACT_EXTRACTOR.md",
         "Subtask 1.3.1: 64-Bit Bitboard Fact & Piece Mobility Extractor",
-        "1.3", "Phase 1", "Milestone 3", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.3",
+        "Phase 1",
+        "Milestone 3",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement high-speed bitboard extraction for piece locations, attack bitmasks, and mobility counts.",
         "`chess.Board` instance.",
         "`src/rules/fact_extractor.py` returning bitmask dictionaries and mobility counts.",
@@ -190,12 +218,16 @@ phase_1_subtasks = [
 2. Write bitwise helper utilities (popcount, square mask, ray attacks).
 3. Write unit tests in `tests/test_fact_extractor.py` verifying bitmask accuracy.
 4. Benchmark fact extraction speed across 1,000 boards (< 0.5s total).""",
-        "- Bitboard masks match piece positions exactly.\n- Extraction latency per board is < 0.5 ms."
+        "- Bitboard masks match piece positions exactly.\n- Extraction latency per board is < 0.5 ms.",
     ),
     (
         "SUBTASK_1_3_2_PAWN_STRUCTURE_PREDICATES.md",
         "Subtask 1.3.2: Pawn Structure & King Safety Predicate Engine",
-        "1.3", "Phase 1", "Milestone 3", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.3",
+        "Phase 1",
+        "Milestone 3",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Extract symbolic predicates for pawn chains, chain base/apex, open/semi-open files, and king pawn shield.",
         "`chess.Board` instance.",
         "Predicate outputs in `ExtractedBoardFacts` (`white_pawn_chains`, `open_files`, `king_shield_integrity`).",
@@ -207,12 +239,16 @@ phase_1_subtasks = [
         """1. Implement pawn structure predicates in `src/rules/fact_extractor.py`.
 2. Add specific test cases in `tests/test_fact_extractor.py` for pawn chain detection and file classification.
 3. Verify with Carlsbad and French Defense pawn structures.""",
-        "- Accurately detects open and semi-open files for both colors.\n- Correctly identifies chain bases and flank advances."
+        "- Accurately detects open and semi-open files for both colors.\n- Correctly identifies chain bases and flank advances.",
     ),
     (
         "SUBTASK_1_3_3_POSITIONAL_OUTPOST_PREDICATES.md",
         "Subtask 1.3.3: Positional Predicates: Outposts & Heavy Piece Batteries",
-        "1.3", "Phase 1", "Milestone 3", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.3",
+        "Phase 1",
+        "Milestone 3",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Extract symbolic predicates for minor piece outposts and heavy piece file doubling.",
         "`chess.Board` instance and recent move history.",
         "Predicate outputs: `outpost_squares`, `occupied_outposts`, `rook_batteries`.",
@@ -228,12 +264,16 @@ phase_1_subtasks = [
         """1. Implement outpost and battery algorithms in `src/rules/fact_extractor.py`.
 2. Write unit tests in `tests/test_fact_extractor.py` using Kasparov-Karpov 1985 G16 (d5 outpost) and Alekhine's Gun FENs.
 3. Verify zero false positive outposts on empty or flank squares.""",
-        "- Outpost squares correctly detected only when uncontested by enemy pawns.\n- Heavy batteries correctly detected along open/semi-open files."
+        "- Outpost squares correctly detected only when uncontested by enemy pawns.\n- Heavy batteries correctly detected along open/semi-open files.",
     ),
     (
         "SUBTASK_1_3_4_FACT_EXTRACTOR_UNIT_TESTS.md",
         "Subtask 1.3.4: Automated Unit Test Suite for Fact Extractor",
-        "1.3", "Phase 1", "Milestone 3", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.3",
+        "Phase 1",
+        "Milestone 3",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build a comprehensive test suite validating all bitboard predicates on standard chess positions.",
         "`src/rules/fact_extractor.py`.",
         "`tests/test_fact_extractor.py` with 100% predicate coverage.",
@@ -246,14 +286,17 @@ phase_1_subtasks = [
         """1. Write `tests/test_fact_extractor.py`.
 2. Add assertions for every field in `ExtractedBoardFacts`.
 3. Run `pytest tests/test_fact_extractor.py` and inspect coverage.""",
-        "- All fact extractor tests pass without assertions failures.\n- Test suite executes in < 2 seconds."
+        "- All fact extractor tests pass without assertions failures.\n- Test suite executes in < 2 seconds.",
     ),
-
     # Task 1.4
     (
         "SUBTASK_1_4_1_KINGSIDE_STORM_RULE.md",
         "Subtask 1.4.1: Kingside Pawn Storm Operational Rule Template",
-        "1.4", "Phase 1", "Milestone 4", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.4",
+        "Phase 1",
+        "Milestone 4",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement rule template evaluating heuristic score for Kingside Pawn Storm (`K_STORM`).",
         "`PositionWindow` and `ExtractedBoardFacts`.",
         "`evaluate_kingside_storm(window, facts) -> float` score in [0.0, 1.0].",
@@ -268,12 +311,16 @@ phase_1_subtasks = [
         """1. Implement `evaluate_kingside_storm` in `src/rules/rule_engine.py`.
 2. Write unit tests in `tests/test_rule_engine.py` with known storm game positions.
 3. Test edge cases (queenside castling, quiet maneuvering).""",
-        "- Scores > 0.70 on active kingside storm positions.\n- Scores < 0.20 when kings are castled on opposite wings without pawn advances."
+        "- Scores > 0.70 on active kingside storm positions.\n- Scores < 0.20 when kings are castled on opposite wings without pawn advances.",
     ),
     (
         "SUBTASK_1_4_2_QUEENSIDE_EXPANSION_RULE.md",
         "Subtask 1.4.2: Queenside Expansion Operational Rule Template",
-        "1.4", "Phase 1", "Milestone 4", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.4",
+        "Phase 1",
+        "Milestone 4",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement rule template evaluating heuristic score for Queenside Expansion (`Q_EXP`).",
         "`PositionWindow` and `ExtractedBoardFacts`.",
         "`evaluate_queenside_expansion(window, facts) -> float` score in [0.0, 1.0].",
@@ -287,12 +334,16 @@ phase_1_subtasks = [
         """1. Implement `evaluate_queenside_expansion` in `src/rules/rule_engine.py`.
 2. Add unit tests for minority attacks and Sicilian queenside pawn pushes.
 3. Verify low scores on central or kingside games.""",
-        "- Scores > 0.70 on positions with clear queenside expansion.\n- Disregards single isolated pawn pushes."
+        "- Scores > 0.70 on positions with clear queenside expansion.\n- Disregards single isolated pawn pushes.",
     ),
     (
         "SUBTASK_1_4_3_OUTPOST_OCCUPATION_RULE.md",
         "Subtask 1.4.3: Outpost Occupation Operational Rule Template",
-        "1.4", "Phase 1", "Milestone 4", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.4",
+        "Phase 1",
+        "Milestone 4",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Implement rule template evaluating heuristic score for Outpost Occupation (`OUTPOST`).",
         "`PositionWindow` and `ExtractedBoardFacts`.",
         "`evaluate_outpost_occupation(window, facts) -> float` score in [0.0, 1.0].",
@@ -307,12 +358,16 @@ phase_1_subtasks = [
         """1. Implement `evaluate_outpost_occupation` in `src/rules/rule_engine.py`.
 2. Add unit test with Kasparov Karpov Game 16 (d5 knight).
 3. Verify score = 0 when outpost is easily attacked by enemy pawn.""",
-        "- Returns 1.0 on established outposts occupied by knights/bishops.\n- Returns 0.0 when target square is vulnerable to enemy pawns."
+        "- Returns 1.0 on established outposts occupied by knights/bishops.\n- Returns 0.0 when target square is vulnerable to enemy pawns.",
     ),
     (
         "SUBTASK_1_4_4_ROOK_FILE_BUILDUP_RULE.md",
         "Subtask 1.4.4: Rook-File Buildup Operational Rule Template",
-        "1.4", "Phase 1", "Milestone 4", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.4",
+        "Phase 1",
+        "Milestone 4",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement rule template evaluating heuristic score for Rook-File Buildup (`ROOK_FILE`).",
         "`PositionWindow` and `ExtractedBoardFacts`.",
         "`evaluate_rook_file_buildup(window, facts) -> float` score in [0.0, 1.0].",
@@ -328,12 +383,16 @@ phase_1_subtasks = [
         """1. Implement `evaluate_rook_file_buildup` in `src/rules/rule_engine.py`.
 2. Add unit tests for open-file doubling and tripling.
 3. Test edge cases with closed files.""",
-        "- Returns high score on doubled rooks on open files.\n- Returns 0.0 on closed files with pawns blocking rooks."
+        "- Returns high score on doubled rooks on open files.\n- Returns 0.0 on closed files with pawns blocking rooks.",
     ),
     (
         "SUBTASK_1_4_5_PAWN_CHAIN_UNDERMINING_RULE.md",
         "Subtask 1.4.5: Pawn-Chain Undermining Operational Rule Template",
-        "1.4", "Phase 1", "Milestone 4", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.4",
+        "Phase 1",
+        "Milestone 4",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Implement rule template evaluating heuristic score for Pawn-Chain Undermining (`CHAIN_UNDERMINE`).",
         "`PositionWindow` and `ExtractedBoardFacts`.",
         "`evaluate_chain_undermining(window, facts) -> float` score in [0.0, 1.0].",
@@ -349,12 +408,16 @@ phase_1_subtasks = [
         """1. Implement `evaluate_chain_undermining` in `src/rules/rule_engine.py`.
 2. Add unit tests with French Defense (...c5 attacking d4).
 3. Test closed structures without pawn levers.""",
-        "- Accurately detects pawn levers targeting chain foundations.\n- Distinguishes structural levers from random pawn moves."
+        "- Accurately detects pawn levers targeting chain foundations.\n- Distinguishes structural levers from random pawn moves.",
     ),
     (
         "SUBTASK_1_4_6_RULE_ONLY_BASELINE_CLASSIFIER.md",
         "Subtask 1.4.6: Rule-Only Baseline Classifier & Ambiguity Resolver",
-        "1.4", "Phase 1", "Milestone 4", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.4",
+        "Phase 1",
+        "Milestone 4",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Combine all 5 rule templates into a unified Rule-Only Classifier (Baseline M3) with ambiguity resolution.",
         "`PositionWindow`.",
         "`RuleEvaluationResult` containing predicted class, confidence, all scores, and evidence list.",
@@ -370,14 +433,17 @@ phase_1_subtasks = [
         """1. Implement `SymbolicRuleEngine.evaluate_window` in `src/rules/rule_engine.py`.
 2. Write `tests/test_rule_engine.py` verifying multi-class resolution and ambiguity filtering.
 3. Verify deterministic output across repeat evaluations.""",
-        "- Predicts dominant class when evidence is strong.\n- Gracefully falls back to `NO_PLAN` when scores are low or conflicting."
+        "- Predicts dominant class when evidence is strong.\n- Gracefully falls back to `NO_PLAN` when scores are low or conflicting.",
     ),
-
     # Task 1.5
     (
         "SUBTASK_1_5_1_LOOKAHEAD_WEAK_LABEL_ENGINE.md",
         "Subtask 1.5.1: Lookahead Retrospective Execution Heuristic Engine",
-        "1.5", "Phase 1", "Milestone 4", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.5",
+        "Phase 1",
+        "Milestone 4",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Build the weak-label generator inspecting future plies to verify plan execution for training data.",
         "Full `chess.pgn.Game` and position ply index $t$.",
         "`src/data/weak_labeler.py` returning weak label class ID and confidence.",
@@ -394,12 +460,16 @@ phase_1_subtasks = [
 2. Implement future lookahead checkers for all 5 classes.
 3. Write `tests/test_weak_labeler.py` verifying retrospective confirmation logic.
 4. Benchmark weak-labeling speed on 100 games.""",
-        "- Confirmed executed plans receive high-confidence weak labels.\n- Unfinished or abandoned plans are rejected or labeled `NO_PLAN`."
+        "- Confirmed executed plans receive high-confidence weak labels.\n- Unfinished or abandoned plans are rejected or labeled `NO_PLAN`.",
     ),
     (
         "SUBTASK_1_5_2_NOISE_FILTER_AND_BALANCING.md",
         "Subtask 1.5.2: Label Noise Filtering, Ambiguity Rejection & Class Balancing",
-        "1.5", "Phase 1", "Milestone 4", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.5",
+        "Phase 1",
+        "Milestone 4",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Filter noisy weak labels, enforce class balancing, and cap samples per game.",
         "Raw extracted weak-labeled records.",
         "Filtered and balanced record collection (target 20,000-50,000 samples).",
@@ -414,12 +484,16 @@ phase_1_subtasks = [
         """1. Implement filtering and balancing routines in `src/data/weak_labeler.py`.
 2. Write tests asserting sample cap per game and confidence thresholding.
 3. Generate distribution audit plots.""",
-        "- No single game contributes > 25 positions.\n- No class occupies > 30% of total dataset (balanced distribution)."
+        "- No single game contributes > 25 positions.\n- No class occupies > 30% of total dataset (balanced distribution).",
     ),
     (
         "SUBTASK_1_5_3_GAME_LEVEL_SPLITTER.md",
         "Subtask 1.5.3: Game-Level Train/Validation/Test Splitter (70/15/15)",
-        "1.5", "Phase 1", "Milestone 4", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.5",
+        "Phase 1",
+        "Milestone 4",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Partition dataset strictly at the game level (70% train, 15% val, 15% test) to prevent window leakage.",
         "List of labeled position records.",
         "`train_records.parquet`, `val_records.parquet`, `test_records.parquet`.",
@@ -435,12 +509,16 @@ phase_1_subtasks = [
         """1. Implement `src/data/dataset_splitter.py`.
 2. Write `tests/test_dataset_splitter.py` verifying zero game overlap across splits.
 3. Save split record tables to `data/processed/`.""",
-        "- Game overlap across splits is strictly 0%.\n- Class proportions are preserved across train, val, and test splits."
+        "- Game overlap across splits is strictly 0%.\n- Class proportions are preserved across train, val, and test splits.",
     ),
     (
         "SUBTASK_1_5_4_DATASET_AUDIT_MANIFEST.md",
         "Subtask 1.5.4: Dataset Manifest & Statistical Distribution Audit",
-        "1.5", "Phase 1", "Milestone 4", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.5",
+        "Phase 1",
+        "Milestone 4",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Generate automated dataset summary report with class counts, rating statistics, and ply distributions.",
         "Split parquet/csv files in `data/processed/`.",
         "`data/processed/dataset_summary.json` and statistical bar charts.",
@@ -453,14 +531,17 @@ phase_1_subtasks = [
         """1. Implement `src/data/audit.py`.
 2. Run audit over processed dataset.
 3. Verify JSON summary output.""",
-        "- `data/processed/dataset_summary.json` exists with valid metrics.\n- Class distribution charts generated."
+        "- `data/processed/dataset_summary.json` exists with valid metrics.\n- Class distribution charts generated.",
     ),
-
     # Task 1.6
     (
         "SUBTASK_1_6_1_BOARD_CANONICAL_ENCODER.md",
         "Subtask 1.6.1: Single-Ply Canonical 14-Plane Board State Encoder",
-        "1.6", "Phase 1", "Milestone 5", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.6",
+        "Phase 1",
+        "Milestone 5",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Encode a single chess board state into 14 binary $8 \\times 8$ spatial planes.",
         "`chess.Board` instance and attacking side color.",
         "NumPy array of shape `(14, 8, 8)`, dtype `float32`.",
@@ -474,12 +555,16 @@ phase_1_subtasks = [
         """1. Implement `BoardPlaneEncoder` in `src/data/tensor_encoder.py`.
 2. Write unit tests in `tests/test_tensor_encoder.py` asserting shape, dtypes, and piece counts.
 3. Benchmark encoding speed (< 0.1ms per board).""",
-        "- Output shape is strictly `(14, 8, 8)` with dtype `float32`.\n- Piece counts match board representation."
+        "- Output shape is strictly `(14, 8, 8)` with dtype `float32`.\n- Piece counts match board representation.",
     ),
     (
         "SUBTASK_1_6_2_HISTORY_STACKING_NORMALIZATION.md",
         "Subtask 1.6.2: 8-Ply History Stacking & Attacker Normalization",
-        "1.6", "Phase 1", "Milestone 5", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.6",
+        "Phase 1",
+        "Milestone 5",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Stack 8 consecutive board states into shape `(112, 8, 8)` and normalize board orientation relative to attacking side.",
         "List of 8 `chess.Board` states and attacking player color.",
         "NumPy array of shape `(112, 8, 8)`.",
@@ -493,12 +578,16 @@ phase_1_subtasks = [
         """1. Implement stacking and normalization in `src/data/tensor_encoder.py`.
 2. Write unit test with identical pawn storm played by White and Black; verify identical normalized tensors.
 3. Test channel alignment.""",
-        "- Output shape is strictly `(112, 8, 8)`.\n- Rotational invariance confirmed between White and Black maneuvers."
+        "- Output shape is strictly `(112, 8, 8)`.\n- Rotational invariance confirmed between White and Black maneuvers.",
     ),
     (
         "SUBTASK_1_6_3_HISTORY_PADDING_VALIDITY_MASK.md",
         "Subtask 1.6.3: History Padding Mask & Sequence Validity Encoding",
-        "1.6", "Phase 1", "Milestone 5", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.6",
+        "Phase 1",
+        "Milestone 5",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Handle early game plies (< 8 plies) with zero-padding and produce 1D validity masks.",
         "Position history with length $< 8$.",
         "Padded tensor `(112, 8, 8)` and 1D validity mask `(8,)`.",
@@ -511,12 +600,16 @@ phase_1_subtasks = [
         """1. Implement padding and mask logic in `src/data/tensor_encoder.py`.
 2. Write unit tests for plies 0, 1, 4, 7, and 20.
 3. Verify mask values match valid ply counts.""",
-        "- Padded positions produce valid tensors without NaN.\n- Validity mask accurately reflects available history depth."
+        "- Padded positions produce valid tensors without NaN.\n- Validity mask accurately reflects available history depth.",
     ),
     (
         "SUBTASK_1_6_4_PYTORCH_DATASET_DATALOADER.md",
         "Subtask 1.6.4: High-Performance PyTorch Dataset & DataLoader",
-        "1.6", "Phase 1", "Milestone 5", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.6",
+        "Phase 1",
+        "Milestone 5",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Build PyTorch Dataset and DataLoader supporting memory-mapped chunk caching.",
         "Split record tables and PGN source.",
         "`src/data/chess_dataset.py` with `ChessPlanDataset`.",
@@ -529,14 +622,17 @@ phase_1_subtasks = [
         """1. Implement `src/data/chess_dataset.py`.
 2. Write `tests/test_dataset.py` testing iteration, batch shapes, and worker stability.
 3. Test DataLoader throughput (> 1,000 samples/sec on GPU/CPU).""",
-        "- Batch output shapes: `(batch_size, 112, 8, 8)`, `(batch_size, 8)`, `(batch_size,)`.\n- Zero memory leaks during multi-epoch iteration."
+        "- Batch output shapes: `(batch_size, 112, 8, 8)`, `(batch_size, 8)`, `(batch_size,)`.\n- Zero memory leaks during multi-epoch iteration.",
     ),
-
     # Task 1.7
     (
         "SUBTASK_1_7_1_RESIDUAL_CNN_BACKBONE.md",
         "Subtask 1.7.1: Residual Convolutional Backbone Implementation",
-        "1.7", "Phase 1", "Milestone 6", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.7",
+        "Phase 1",
+        "Milestone 6",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement the custom PyTorch Residual CNN backbone with 4 residual blocks and 64 channels.",
         "Input tensor `(batch_size, 112, 8, 8)`.",
         "`src/models/residual_cnn.py` defining `ResidualBlock` and `HistoryChessResNet`.",
@@ -551,12 +647,16 @@ phase_1_subtasks = [
         """1. Implement `ResidualBlock` and backbone in `src/models/residual_cnn.py`.
 2. Write unit tests in `tests/test_models.py` verifying forward pass and residual addition.
 3. Assert parameter count is ~250k-300k.""",
-        "- Forward pass succeeds without shape errors.\n- Gradients backpropagate through all residual blocks."
+        "- Forward pass succeeds without shape errors.\n- Gradients backpropagate through all residual blocks.",
     ),
     (
         "SUBTASK_1_7_2_CLASSIFICATION_HEAD.md",
         "Subtask 1.7.2: Classification Head & Softmax Probability Estimator",
-        "1.7", "Phase 1", "Milestone 6", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.7",
+        "Phase 1",
+        "Milestone 6",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement Global Average Pooling (GAP), LayerNorm, Dropout, and 6-class linear classification head.",
         "Backbone feature map `(batch_size, 64, 8, 8)`.",
         "Raw logits `(batch_size, 6)` and softmax probabilities.",
@@ -573,12 +673,16 @@ phase_1_subtasks = [
         """1. Implement classification head in `src/models/residual_cnn.py`.
 2. Write unit tests asserting output shape `(batch_size, 6)` and probabilities sum to 1.0.
 3. Test dropout toggling between train() and eval() modes.""",
-        "- Output tensor has shape `(batch_size, 6)`.\n- Sum of softmax probabilities equals 1.0 per sample."
+        "- Output tensor has shape `(batch_size, 6)`.\n- Sum of softmax probabilities equals 1.0 per sample.",
     ),
     (
         "SUBTASK_1_7_3_SINGLE_BOARD_BASELINE_CNN.md",
         "Subtask 1.7.3: Single-Board Current-Position Baseline CNN",
-        "1.7", "Phase 1", "Milestone 6", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.7",
+        "Phase 1",
+        "Milestone 6",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement matched single-board CNN architecture (14 input channels) for scientific history ablation.",
         "Current board tensor `(batch_size, 14, 8, 8)`.",
         "`src/models/single_board_cnn.py` defining `CurrentPositionResNet`.",
@@ -591,12 +695,16 @@ phase_1_subtasks = [
         """1. Implement `src/models/single_board_cnn.py`.
 2. Write unit test verifying forward pass on `(batch_size, 14, 8, 8)`.
 3. Verify parameter parity with history-aware network.""",
-        "- Single-board baseline runs forward passes cleanly.\n- Architecture matches history model in all aspects except input channels."
+        "- Single-board baseline runs forward passes cleanly.\n- Architecture matches history model in all aspects except input channels.",
     ),
     (
         "SUBTASK_1_7_4_ONNX_TORCHSCRIPT_EXPORT.md",
         "Subtask 1.7.4: Checkpointing, TorchScript & ONNX Export Pipeline",
-        "1.7", "Phase 1", "Milestone 6", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.7",
+        "Phase 1",
+        "Milestone 6",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build automated serialization pipeline exporting PyTorch models to TorchScript and ONNX formats for CPU inference.",
         "Trained PyTorch model and checkpoint path.",
         "`models/checkpoints/best_resnet.pt`, `model.torchscript.pt`, `model.onnx`.",
@@ -608,14 +716,17 @@ phase_1_subtasks = [
         """1. Implement `src/models/export.py`.
 2. Add export tests in `tests/test_export.py`.
 3. Verify ONNX CPU execution speed (< 10ms).""",
-        "- `model.onnx` passes `onnx.checker.check_model()`.\n- Numeric output matches PyTorch model within numerical tolerance."
+        "- `model.onnx` passes `onnx.checker.check_model()`.\n- Numeric output matches PyTorch model within numerical tolerance.",
     ),
-
     # Task 1.8
     (
         "SUBTASK_1_8_1_TRAINING_LOSS_CLASS_WEIGHTS.md",
         "Subtask 1.8.1: PyTorch Training Loop, Loss & Class Weighting",
-        "1.8", "Phase 1", "Milestone 7", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.8",
+        "Phase 1",
+        "Milestone 7",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Build the PyTorch training loop with class-weighted Cross-Entropy loss and label smoothing.",
         "DataLoader instances and configuration parameters.",
         "`src/models/train.py` with complete optimization step.",
@@ -628,12 +739,16 @@ phase_1_subtasks = [
         """1. Implement training loop in `src/models/train.py`.
 2. Write unit tests in `tests/test_training_step.py` verifying loss decreases across 5 iterations on synthetic batch.
 3. Test class weight calculation.""",
-        "- Single training step executes without NaN or exploding gradients.\n- Class weights correctly penalize rare class errors."
+        "- Single training step executes without NaN or exploding gradients.\n- Class weights correctly penalize rare class errors.",
     ),
     (
         "SUBTASK_1_8_2_VALIDATION_EARLY_STOPPING_SCHEDULER.md",
         "Subtask 1.8.2: Validation Early Stopping, Learning Rate Scheduler & Seeds",
-        "1.8", "Phase 1", "Milestone 7", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.8",
+        "Phase 1",
+        "Milestone 7",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Implement validation Macro-F1 early stopping, cosine annealing schedule, and deterministic seeding.",
         "Validation DataLoader and checkpoint directory.",
         "Early stopping handler and learning rate updates.",
@@ -644,12 +759,16 @@ phase_1_subtasks = [
         """1. Implement early stopping and scheduling in `src/models/train.py`.
 2. Write test verifying early stopping triggers when validation metrics plateau.
 3. Verify deterministic repeatability across duplicate seeded runs.""",
-        "- Training halts automatically when validation metric stops improving.\n- Best checkpoint restored and saved to disk."
+        "- Training halts automatically when validation metric stops improving.\n- Best checkpoint restored and saved to disk.",
     ),
     (
         "SUBTASK_1_8_3_HISTORY_LENGTH_ABLATION.md",
         "Subtask 1.8.3: History Length Ablation Engine (1 vs 4 vs 8 Plies)",
-        "1.8", "Phase 1", "Milestone 7", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.8",
+        "Phase 1",
+        "Milestone 7",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Execute controlled ablation comparing 1-ply, 4-ply, and 8-ply history models under matched hyperparameter settings.",
         "Identical train/val splits and random seeds.",
         "`src/models/train_ablation.py` and `experiments/ablation_results.json`.",
@@ -664,12 +783,16 @@ phase_1_subtasks = [
         """1. Implement `src/models/train_ablation.py`.
 2. Run ablation benchmark.
 3. Output comparative summary table and bar chart in `experiments/plots/ablation_history.png`.""",
-        "- Successfully trains all 3 ablation models.\n- Produces empirical F1 comparison answering the primary research question."
+        "- Successfully trains all 3 ablation models.\n- Produces empirical F1 comparison answering the primary research question.",
     ),
     (
         "SUBTASK_1_8_4_METRICS_LOGGING_CHECKPOINTING.md",
         "Subtask 1.8.4: Training Metrics Logging, TensorBoard & Checkpoint Selection",
-        "1.8", "Phase 1", "Milestone 7", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.8",
+        "Phase 1",
+        "Milestone 7",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Log epoch losses, accuracies, and per-class F1 metrics; manage checkpoint files.",
         "Training and validation statistics per epoch.",
         "`models/checkpoints/best_resnet.pt`, `training_metrics.json`, and learning curve plots.",
@@ -682,14 +805,17 @@ phase_1_subtasks = [
         """1. Implement `src/models/logger.py`.
 2. Integrate logger into `src/models/train.py`.
 3. Verify plot generation and checkpoint file persistence.""",
-        "- `best_resnet.pt` saved with metadata and retrievable weights.\n- Training curve plots generated cleanly."
+        "- `best_resnet.pt` saved with metadata and retrievable weights.\n- Training curve plots generated cleanly.",
     ),
-
     # Task 1.9
     (
         "SUBTASK_1_9_1_ANNOTATION_RUBRIC_GUIDELINE.md",
         "Subtask 1.9.1: Written Annotation Rubric & Guideline Documentation",
-        "1.9", "Phase 1", "Milestone 8", "Shared (Both Members)", "Shahzad Ahmad & Muhammad Ali",
+        "1.9",
+        "Phase 1",
+        "Milestone 8",
+        "Shared (Both Members)",
+        "Shahzad Ahmad & Muhammad Ali",
         "Formalize the human annotation rubric and rating instructions for the 250 held-out test windows.",
         "`docs/06_CHESS_STRATEGY_TAXONOMY_AND_RUBRIC.md`.",
         "`data/annotations/ANNOTATION_GUIDELINES.md` signed off by both members.",
@@ -702,12 +828,16 @@ phase_1_subtasks = [
         """1. Draft and finalize `data/annotations/ANNOTATION_GUIDELINES.md`.
 2. Both members review and confirm operational consensus.
 3. Commit guideline document to repository.""",
-        "- Guidelines clearly specify boundary criteria for all 5 plans and `NO_PLAN`.\n- Both team members understand and follow the identical rubric."
+        "- Guidelines clearly specify boundary criteria for all 5 plans and `NO_PLAN`.\n- Both team members understand and follow the identical rubric.",
     ),
     (
         "SUBTASK_1_9_2_TEST_WINDOW_SAMPLER.md",
         "Subtask 1.9.2: 250 Held-Out Position Window Extraction Tool",
-        "1.9", "Phase 1", "Milestone 8", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "1.9",
+        "Phase 1",
+        "Milestone 8",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Extract exactly 250 stratified held-out position windows from the test split games for human annotation.",
         "`test_records.parquet` from 15% test split.",
         "`data/annotations/raw_annotations_member1.csv` and `raw_annotations_member2.csv`.",
@@ -720,12 +850,16 @@ phase_1_subtasks = [
         """1. Implement `src/data/sample_test_set.py`.
 2. Run sampling script.
 3. Verify that sampled games have 0% overlap with training/validation splits.""",
-        "- Exactly 250 unique test position rows generated.\n- No labels or model hints present in annotation sheets."
+        "- Exactly 250 unique test position rows generated.\n- No labels or model hints present in annotation sheets.",
     ),
     (
         "SUBTASK_1_9_3_INDEPENDENT_DOUBLE_BLIND_ANNOTATION.md",
         "Subtask 1.9.3: Double-Blind Independent Annotation Execution",
-        "1.9", "Phase 1", "Milestone 8", "Shared (Both Members)", "Muhammad Ali & Shahzad Ahmad",
+        "1.9",
+        "Phase 1",
+        "Milestone 8",
+        "Shared (Both Members)",
+        "Muhammad Ali & Shahzad Ahmad",
         "Execute independent double-blind manual annotation of 250 test windows by both team members.",
         "Blank CSV files `raw_annotations_member1.csv` and `raw_annotations_member2.csv`.",
         "Completed independent annotation CSVs with 250 labeled rows each.",
@@ -736,12 +870,16 @@ phase_1_subtasks = [
         """1. Both members label positions independently.
 2. Commit completed CSV files.
 3. Verify no missing cells or invalid class strings.""",
-        "- Both CSV files contain exactly 250 valid entries.\n- Class names conform to taxonomy strings."
+        "- Both CSV files contain exactly 250 valid entries.\n- Class names conform to taxonomy strings.",
     ),
     (
         "SUBTASK_1_9_4_COHEN_KAPPA_ADJUDICATION.md",
         "Subtask 1.9.4: Cohen's Kappa Inter-Rater Reliability & Adjudication Tool",
-        "1.9", "Phase 1", "Milestone 8", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "1.9",
+        "Phase 1",
+        "Milestone 8",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Calculate Cohen's Kappa score (\\kappa), generate conflict report, and produce frozen consensus ground truth.",
         "Completed annotation files from both members.",
         "`data/annotations/test_ground_truth.csv` and `experiments/inter_rater_reliability.json`.",
@@ -757,7 +895,7 @@ phase_1_subtasks = [
 2. Run script to calculate Kappa and extract disagreements.
 3. Conduct consensus meeting to adjudicate disputed rows.
 4. Freeze `test_ground_truth.csv`.""",
-        "- `test_ground_truth.csv` finalized with 250 adjudicated labels.\n- Inter-rater Kappa score documented and reported."
+        "- `test_ground_truth.csv` finalized with 250 adjudicated labels.\n- Inter-rater Kappa score documented and reported.",
     ),
 ]
 
@@ -770,7 +908,11 @@ phase_2_subtasks = [
     (
         "SUBTASK_2_1_1_STATE_MACHINE_HYSTERESIS.md",
         "Subtask 2.1.1: Per-Player State Machine & Hysteresis Logic",
-        "2.1", "Phase 2", "Milestone 9", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.1",
+        "Phase 2",
+        "Milestone 9",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Implement per-player plan state tracking with 2-ply hysteresis to eliminate prediction flickering.",
         "Stream of per-ply model predictions and active player turn.",
         "`src/tracking/state_tracker.py` with `TemporalPlanTracker`.",
@@ -784,12 +926,16 @@ phase_2_subtasks = [
         """1. Implement state machine in `src/tracking/state_tracker.py`.
 2. Write unit tests in `tests/test_state_tracker.py` simulating move sequences.
 3. Verify that isolated 1-ply noise spikes do not trigger plan flips.""",
-        "- State tracker maintains persistent active plan across consecutive plies.\n- Hysteresis successfully filters out transient tactical spikes."
+        "- State tracker maintains persistent active plan across consecutive plies.\n- Hysteresis successfully filters out transient tactical spikes.",
     ),
     (
         "SUBTASK_2_1_2_PLAN_ONSET_BACKTRACKING.md",
         "Subtask 2.1.2: Earliest Detected Onset Estimation & Timeline History",
-        "2.1", "Phase 2", "Milestone 9", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.1",
+        "Phase 2",
+        "Milestone 9",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Detect the earliest supporting ply of an activated plan by backtracking through the history window.",
         "Candidate activation event in `TemporalPlanTracker`.",
         "`onset_ply` integer attribute and timeline record in `PlayerPlanState`.",
@@ -802,12 +948,16 @@ phase_2_subtasks = [
         """1. Implement onset backtracking in `src/tracking/state_tracker.py`.
 2. Add unit test verifying onset detection on known games.
 3. Test edge case where onset occurs at ply 0.""",
-        "- Onset ply correctly identifies the first supporting ply of the plan.\n- Timeline accurately logs plan duration."
+        "- Onset ply correctly identifies the first supporting ply of the plan.\n- Timeline accurately logs plan duration.",
     ),
     (
         "SUBTASK_2_1_3_PROGRESS_VS_THREAT_METRIC.md",
         "Subtask 2.1.3: Plan Progress vs Threat Severity Metric Formulation",
-        "2.1", "Phase 2", "Milestone 9", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.1",
+        "Phase 2",
+        "Milestone 9",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Formulate independent metrics for plan completion progress versus immediate tactical threat severity.",
         "`PlayerPlanState` and `ExtractedBoardFacts`.",
         "`progress_score` and `threat_score` floats in [0.0, 1.0].",
@@ -820,12 +970,16 @@ phase_2_subtasks = [
         """1. Implement metric evaluators in `src/tracking/state_tracker.py`.
 2. Write unit tests asserting bounds [0.0, 1.0].
 3. Verify progress increases as pieces advance toward target squares.""",
-        "- Progress score correlates with geometric advancement.\n- Threat score reflects positional pressure on defending king."
+        "- Progress score correlates with geometric advancement.\n- Threat score reflects positional pressure on defending king.",
     ),
     (
         "SUBTASK_2_1_4_STATE_TRACKER_SIMULATION_TESTS.md",
         "Subtask 2.1.4: Unit Tests & Move-Sequence Simulation for State Tracker",
-        "2.1", "Phase 2", "Milestone 9", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.1",
+        "Phase 2",
+        "Milestone 9",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build a comprehensive simulation test suite for temporal plan tracking across full game sequences.",
         "`src/tracking/state_tracker.py`.",
         "`tests/test_state_tracker.py` with multi-ply simulation scenarios.",
@@ -838,14 +992,17 @@ phase_2_subtasks = [
         """1. Implement simulation scenarios in `tests/test_state_tracker.py`.
 2. Run `pytest tests/test_state_tracker.py`.
 3. Check 100% test coverage of state machine branches.""",
-        "- All simulated game sequences pass expected state assertions.\n- Tracker correctly handles game resets."
+        "- All simulated game sequences pass expected state assertions.\n- Tracker correctly handles game resets.",
     ),
-
     # Task 2.2
     (
         "SUBTASK_2_2_1_SCORE_CALIBRATION_NORMALIZATION.md",
         "Subtask 2.2.1: Score Calibration & Symbolic Rule Normalization",
-        "2.2", "Phase 2", "Milestone 10", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "2.2",
+        "Phase 2",
+        "Milestone 10",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Calibrate neural logits with temperature scaling and normalize symbolic rule scores.",
         "Raw model logits and symbolic rule scores.",
         "Calibrated probabilities and normalized rule vectors.",
@@ -857,12 +1014,16 @@ phase_2_subtasks = [
         """1. Implement calibration functions in `src/tracking/fusion.py`.
 2. Write unit tests in `tests/test_fusion.py` asserting probability sums and positive bounds.
 3. Test temperature scaling effect on entropy.""",
-        "- Output vectors strictly sum to 1.0.\n- Overconfident extreme probabilities are softened appropriately."
+        "- Output vectors strictly sum to 1.0.\n- Overconfident extreme probabilities are softened appropriately.",
     ),
     (
         "SUBTASK_2_2_2_WEIGHTED_SCORE_FUSION.md",
         "Subtask 2.2.2: Validation-Weighted Neural-Rule Score Fusion Engine",
-        "2.2", "Phase 2", "Milestone 10", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.2",
+        "Phase 2",
+        "Milestone 10",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Blend neural probabilities with symbolic rule scores using validation-tuned weight \\alpha.",
         "Calibrated neural probabilities and normalized rule scores.",
         "`FusedPrediction` object with hybrid score vector.",
@@ -874,12 +1035,16 @@ phase_2_subtasks = [
         """1. Implement `HybridFusionEngine.fuse` in `src/tracking/fusion.py`.
 2. Implement `scripts/tune_fusion_alpha.py`.
 3. Add unit tests verifying fusion arithmetic and bounds.""",
-        "- Hybrid score combines both modalities smoothly.\n- Yields higher Macro-F1 than rule baseline or neural model alone."
+        "- Hybrid score combines both modalities smoothly.\n- Yields higher Macro-F1 than rule baseline or neural model alone.",
     ),
     (
         "SUBTASK_2_2_3_UNCERTAINTY_ABSTENTION_GATING.md",
         "Subtask 2.2.3: Prediction Abstention & Ambiguity Threshold Filter",
-        "2.2", "Phase 2", "Milestone 10", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.2",
+        "Phase 2",
+        "Milestone 10",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Implement confidence and margin abstention gates to flag ambiguous or low-confidence positions.",
         "Hybrid score vector $S_{\\text{hybrid}}$.",
         "`is_abstained: bool`, `abstention_reason: str`, and final class assignment.",
@@ -892,14 +1057,17 @@ phase_2_subtasks = [
         """1. Implement abstention gates in `src/tracking/fusion.py`.
 2. Write unit tests in `tests/test_fusion.py` testing uniform and close-margin distributions.
 3. Compute selective accuracy on accepted predictions.""",
-        "- Successfully flags ambiguous and uniform probability profiles.\n- Accuracy on non-abstained predictions is significantly higher than full test set."
+        "- Successfully flags ambiguous and uniform probability profiles.\n- Accuracy on non-abstained predictions is significantly higher than full test set.",
     ),
-
     # Task 2.3
     (
         "SUBTASK_2_3_1_CONTROLLED_EXPLANATION_TEMPLATES.md",
         "Subtask 2.3.1: Controlled Explanation Template Library",
-        "2.3", "Phase 2", "Milestone 11", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.3",
+        "Phase 2",
+        "Milestone 11",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build deterministic template library separating observed board facts from model hypotheses.",
         "Detected plan, confidence, and attacking side.",
         "`src/tracking/explanations.py` defining template formats for all 6 classes.",
@@ -916,12 +1084,16 @@ phase_2_subtasks = [
         """1. Implement template definitions in `src/tracking/explanations.py`.
 2. Write unit tests checking that templates render valid sentences without syntax errors.
 3. Verify no unformatted template placeholders `{}` remain in rendered outputs.""",
-        "- All templates produce grammatically correct, pedagogical sentences.\n- Explicitly labels predictions as hypotheses, not telepathic intentions."
+        "- All templates produce grammatically correct, pedagogical sentences.\n- Explicitly labels predictions as hypotheses, not telepathic intentions.",
     ),
     (
         "SUBTASK_2_3_2_STRATEGIC_RATIONALE_FORMATTER.md",
         "Subtask 2.3.2: Strategic Plan Rationale & Supporting Evidence Formatter",
-        "2.3", "Phase 2", "Milestone 11", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.3",
+        "Phase 2",
+        "Milestone 11",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Format concrete chess moves, square names, and tactical facts into pedagogical bullet points.",
         "`PlayerPlanState`, `ExtractedBoardFacts`, and recent SAN move list.",
         "`ExplanationCard` with summary sentence and grounded factual bullet points.",
@@ -933,12 +1105,16 @@ phase_2_subtasks = [
         """1. Implement formatting methods in `src/tracking/explanations.py`.
 2. Test formatting across all 5 sample master games.
 3. Assert that rendered bullet points contain valid algebraic notation.""",
-        "- Bullet points accurately reflect the verified move and board state.\n- Pedagogical tone suitable for chess learners."
+        "- Bullet points accurately reflect the verified move and board state.\n- Pedagogical tone suitable for chess learners.",
     ),
     (
         "SUBTASK_2_3_3_STRUCTURED_CLAIM_VERIFIER.md",
         "Subtask 2.3.3: Strict Structured Claim Schema & Validation Filter",
-        "2.3", "Phase 2", "Milestone 11", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.3",
+        "Phase 2",
+        "Milestone 11",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Verify that every square and piece claim made in an explanation actually exists on the board.",
         "`chess.Board` and generated `ExplanationCard`.",
         "`verified_claim_status: bool` and safe fallback if verification fails.",
@@ -951,14 +1127,17 @@ phase_2_subtasks = [
         """1. Implement verification logic in `src/tracking/explanations.py`.
 2. Write unit tests injecting intentional corrupted square claims; verify fallback triggers.
 3. Test with genuine board states; verify 100% pass rate.""",
-        "- Zero hallucination: no non-existent pieces or squares are presented as facts.\n- Automatic fallback on unexpected board states."
+        "- Zero hallucination: no non-existent pieces or squares are presented as facts.\n- Automatic fallback on unexpected board states.",
     ),
-
     # Task 2.4
     (
         "SUBTASK_2_4_1_APP_STRUCTURE_SESSION_STATE.md",
         "Subtask 2.4.1: Streamlit App Structure, Layout & Session State Manager",
-        "2.4", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.4",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build the Streamlit application shell, multi-column layout, and session state manager.",
         "None (app entry point).",
         "`src/ui/app.py` with responsive 2-column layout and session state dictionary.",
@@ -975,12 +1154,16 @@ phase_2_subtasks = [
         """1. Implement `src/ui/app.py` with page config and session initialization.
 2. Verify app launches with `streamlit run src/ui/app.py`.
 3. Check state persistence across UI re-renders.""",
-        "- App launches cleanly without warnings or errors.\n- Session state maintains game position across widget interactions."
+        "- App launches cleanly without warnings or errors.\n- Session state maintains game position across widget interactions.",
     ),
     (
         "SUBTASK_2_4_2_PGN_LOADER_SAMPLE_LIBRARY.md",
         "Subtask 2.4.2: PGN File Uploader & Famous Master Game Library",
-        "2.4", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.4",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Implement PGN file uploader and pre-bundled library of 5 classic master games.",
         "User uploaded PGN file or library dropdown selection.",
         "`src/ui/game_loader.py` returning parsed `chess.pgn.Game`.",
@@ -997,12 +1180,16 @@ phase_2_subtasks = [
         """1. Implement `src/ui/game_loader.py`.
 2. Create sample PGN files under `data/samples/`.
 3. Test loading both bundled games and uploaded PGN files.""",
-        "- All 5 sample games load and parse without error.\n- Custom PGN uploader handles edge cases cleanly."
+        "- All 5 sample games load and parse without error.\n- Custom PGN uploader handles edge cases cleanly.",
     ),
     (
         "SUBTASK_2_4_3_MOVE_STEPPER_NAVIGATOR.md",
         "Subtask 2.4.3: Interactive Move-by-Move Game Stepper & Timeline Navigation",
-        "2.4", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.4",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build move navigation controls: First, Previous, Play/Pause auto-play, Next, Last, and ply slider.",
         "Active `chess.pgn.Game` in session state.",
         "`src/ui/navigator.py` rendering navigation bar and move notation display.",
@@ -1015,12 +1202,16 @@ phase_2_subtasks = [
         """1. Implement `src/ui/navigator.py`.
 2. Bind button click callbacks to `st.session_state.current_ply`.
 3. Test smooth slider scrubbing and boundary handling (ply 0 and max ply).""",
-        "- Buttons and slider update `current_ply` synchronously.\n- Boundary checks prevent out-of-bounds indexing."
+        "- Buttons and slider update `current_ply` synchronously.\n- Boundary checks prevent out-of-bounds indexing.",
     ),
     (
         "SUBTASK_2_4_4_INFERENCE_RUNNER_CACHING.md",
         "Subtask 2.4.4: Low-Latency Inference Runner with Caching",
-        "2.4", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.4",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build high-speed inference runner cached with `@st.cache_resource` for zero UI lag.",
         "Active ply and board history.",
         "`src/ui/inference_runner.py` returning prediction, state, and facts in < 20ms.",
@@ -1033,14 +1224,17 @@ phase_2_subtasks = [
         """1. Implement `src/ui/inference_runner.py`.
 2. Benchmark inference latency inside Streamlit (< 20ms per ply).
 3. Test switching models dynamically from sidebar.""",
-        "- Move navigation updates board and predictions instantly (< 20ms).\n- Memory consumption remains stable during long interactive sessions."
+        "- Move navigation updates board and predictions instantly (< 20ms).\n- Memory consumption remains stable during long interactive sessions.",
     ),
-
     # Task 2.5
     (
         "SUBTASK_2_5_1_SVG_CHESSBOARD_OVERLAYS.md",
         "Subtask 2.5.1: Interactive SVG Chessboard Component with Strategic Overlays",
-        "2.5", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.5",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Render chessboard using `python-chess.svg` with move arrows and strategic square highlights.",
         "Active `chess.Board`, last move, and detected strategic features.",
         "`src/ui/board_view.py` rendering SVG in Streamlit HTML component.",
@@ -1054,12 +1248,16 @@ phase_2_subtasks = [
         """1. Implement SVG generation in `src/ui/board_view.py`.
 2. Embed SVG in Streamlit using `st.components.v1.html(svg, height=450, width=450)`.
 3. Verify arrow positioning and square highlights on sample positions.""",
-        "- Board renders cleanly at high resolution.\n- Strategic arrows and highlights align precisely with target squares."
+        "- Board renders cleanly at high resolution.\n- Strategic arrows and highlights align precisely with target squares.",
     ),
     (
         "SUBTASK_2_5_2_PROBABILITY_BAR_CHARTS.md",
         "Subtask 2.5.2: Multi-Class Probability Bar Chart & Confidence Breakdown",
-        "2.5", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.5",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Render horizontal probability bar chart across all 6 classes with abstention threshold line.",
         "Probability dictionary from inference runner.",
         "`src/ui/charts.py` rendering styled probability bars.",
@@ -1072,12 +1270,16 @@ phase_2_subtasks = [
         """1. Implement `render_probability_bars` in `src/ui/charts.py`.
 2. Test chart rendering across diverse probability profiles.
 3. Verify responsive layout in Streamlit right column.""",
-        "- Probabilities render cleanly with percentage labels.\n- Status badge updates dynamically based on confidence."
+        "- Probabilities render cleanly with percentage labels.\n- Status badge updates dynamically based on confidence.",
     ),
     (
         "SUBTASK_2_5_3_TEMPORAL_PLAN_TIMELINE.md",
         "Subtask 2.5.3: Whole-Game Temporal Plan Evolution Chart",
-        "2.5", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.5",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build interactive line/area chart plotting plan probabilities across all game plies with onset markers.",
         "Precomputed game history probabilities.",
         "`src/ui/timeline.py` rendering multi-line temporal chart.",
@@ -1091,12 +1293,16 @@ phase_2_subtasks = [
         """1. Implement `render_game_timeline` in `src/ui/timeline.py`.
 2. Precompute whole-game predictions with progress indicator.
 3. Verify cursor line syncs with navigation stepper.""",
-        "- Visualizes the birth, dominance, and decline of strategic plans.\n- Cursor follows move stepper smoothly."
+        "- Visualizes the birth, dominance, and decline of strategic plans.\n- Cursor follows move stepper smoothly.",
     ),
     (
         "SUBTASK_2_5_4_GROUNDED_EVIDENCE_ACCORDION.md",
         "Subtask 2.5.4: Grounded Evidence Fact Inspector & Accordion",
-        "2.5", "Phase 2", "Milestone 12", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.5",
+        "Phase 2",
+        "Milestone 12",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build expandable accordion presenting pawn structures, outposts, file control, and explanation card.",
         "`ExtractedBoardFacts` and `ExplanationCard`.",
         "`src/ui/evidence_view.py` rendering formatted evidence blocks.",
@@ -1109,14 +1315,17 @@ phase_2_subtasks = [
         """1. Implement `src/ui/evidence_view.py`.
 2. Style with markdown callout boxes and metric widgets.
 3. Verify evidence updates correctly at each move step.""",
-        "- Clear, human-readable breakdown of underlying chess facts.\n- Allows learners to inspect why the AI made its prediction."
+        "- Clear, human-readable breakdown of underlying chess facts.\n- Allows learners to inspect why the AI made its prediction.",
     ),
-
     # Task 2.6
     (
         "SUBTASK_2_6_1_STOCKFISH_UCI_CLIENT.md",
         "Subtask 2.6.1: Stockfish Engine UCI Client Wrapper",
-        "2.6", "Phase 2", "Milestone 13", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.6",
+        "Phase 2",
+        "Milestone 13",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build UCI client wrapper using `chess.engine` with configurable depth and graceful fallback if missing.",
         "Path to Stockfish binary (optional).",
         "`src/utils/stockfish_client.py` with `StockfishAnalyzer`.",
@@ -1128,12 +1337,16 @@ phase_2_subtasks = [
         """1. Implement `src/utils/stockfish_client.py`.
 2. Write unit tests in `tests/test_stockfish_client.py` with mock engine.
 3. Verify zero crash when binary does not exist.""",
-        "- Wrapper initializes cleanly whether Stockfish is present or absent.\n- Never blocks or crashes UI execution."
+        "- Wrapper initializes cleanly whether Stockfish is present or absent.\n- Never blocks or crashes UI execution.",
     ),
     (
         "SUBTASK_2_6_2_DEFENSIVE_COUNTERPLAY_SCREENING.md",
         "Subtask 2.6.2: Defender Counter-Move Screening & Plan Disruption",
-        "2.6", "Phase 2", "Milestone 13", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.6",
+        "Phase 2",
+        "Milestone 13",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Screen defender candidate moves to identify counter-moves that disrupt the opponent's detected plan.",
         "`chess.Board` and detected opponent plan.",
         "List of `EngineCandidateMove` with strategic disruption notes.",
@@ -1145,12 +1358,16 @@ phase_2_subtasks = [
         """1. Implement defensive screening in `src/utils/stockfish_client.py`.
 2. Test on tactical positions with obvious defensive replies.
 3. Display suggestions in Streamlit Tab 3.""",
-        "- Produces sensible defensive recommendations.\n- Explicitly disclaims engine output as study suggestions."
+        "- Produces sensible defensive recommendations.\n- Explicitly disclaims engine output as study suggestions.",
     ),
     (
         "SUBTASK_2_6_3_THREAT_DELTA_SIMULATION.md",
         "Subtask 2.6.3: Threat Delta Simulation (Proactive vs Passive)",
-        "2.6", "Phase 2", "Milestone 13", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.6",
+        "Phase 2",
+        "Milestone 13",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Compute evaluation delta between proactive defensive moves and ignoring the opponent's plan.",
         "Current position and candidate moves.",
         "Threat delta numerical value $\\Delta_{\\text{threat}}$ and interpretation note.",
@@ -1161,14 +1378,17 @@ phase_2_subtasks = [
         """1. Implement threat delta calculation in `src/utils/stockfish_client.py`.
 2. Integrate delta display in Streamlit engine tab.
 3. Verify proper centipawn formatting (+1.5, -0.8).""",
-        "- Accurately reports engine evaluation difference.\n- Helps learners appreciate the severity of positional threats."
+        "- Accurately reports engine evaluation difference.\n- Helps learners appreciate the severity of positional threats.",
     ),
-
     # Task 2.7
     (
         "SUBTASK_2_7_1_MULTI_MODEL_BENCHMARK_RUNNER.md",
         "Subtask 2.7.1: Multi-Model Benchmark Runner on Test Ground Truth",
-        "2.7", "Phase 2", "Milestone 14", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "2.7",
+        "Phase 2",
+        "Milestone 14",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Execute automated benchmarking of 4 systems on the frozen 250-position test set.",
         "`data/annotations/test_ground_truth.csv` and trained checkpoints.",
         "`experiments/evaluation_results.csv` containing side-by-side predictions.",
@@ -1183,12 +1403,16 @@ phase_2_subtasks = [
         """1. Implement `src/models/evaluate.py`.
 2. Execute full benchmark on 250 test positions.
 3. Save raw prediction outputs to CSV.""",
-        "- All 4 systems evaluated on identical test examples.\n- Output table saved with complete prediction records."
+        "- All 4 systems evaluated on identical test examples.\n- Output table saved with complete prediction records.",
     ),
     (
         "SUBTASK_2_7_2_METRICS_CONFUSION_MATRICES.md",
         "Subtask 2.7.2: Confusion Matrix, Macro-F1 & Per-Class Metrics Generator",
-        "2.7", "Phase 2", "Milestone 14", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "2.7",
+        "Phase 2",
+        "Milestone 14",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Compute classification metrics and generate normalized confusion matrix heatmaps.",
         "`experiments/evaluation_results.csv`.",
         "`experiments/plots/confusion_matrix_*.png` and `experiments/metrics_summary.json`.",
@@ -1200,12 +1424,16 @@ phase_2_subtasks = [
         """1. Implement `src/models/metrics.py`.
 2. Generate confusion matrix plots for each model.
 3. Verify metric calculation with `scikit-learn.metrics.classification_report`.""",
-        "- Confusion matrix heatmaps saved to `experiments/plots/`.\n- Macro-F1 and per-class metrics exported to JSON."
+        "- Confusion matrix heatmaps saved to `experiments/plots/`.\n- Macro-F1 and per-class metrics exported to JSON.",
     ),
     (
         "SUBTASK_2_7_3_GAME_CLUSTER_BOOTSTRAP_CI.md",
         "Subtask 2.7.3: Game-Cluster Bootstrap Confidence Interval Calculator",
-        "2.7", "Phase 2", "Milestone 14", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "2.7",
+        "Phase 2",
+        "Milestone 14",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Compute 95% Confidence Intervals for Macro-F1 using 1,000 game-cluster bootstrap iterations.",
         "`experiments/evaluation_results.csv` with `game_id` column.",
         "`experiments/bootstrap_confidence_intervals.json`.",
@@ -1218,12 +1446,16 @@ phase_2_subtasks = [
         """1. Implement `src/models/bootstrap.py`.
 2. Run 1,000 bootstrap iterations.
 3. Log confidence intervals for inclusion in the final report.""",
-        "- Statistically sound confidence intervals accounting for clustered game data.\n- Confirms whether History CNN superiority is statistically significant."
+        "- Statistically sound confidence intervals accounting for clustered game data.\n- Confirms whether History CNN superiority is statistically significant.",
     ),
     (
         "SUBTASK_2_7_4_QUALITATIVE_FAILURE_ANALYSIS.md",
         "Subtask 2.7.4: Systematic Qualitative Failure Analysis & Edge-Case Audit",
-        "2.7", "Phase 2", "Milestone 14", "Shahzad Ahmad (24I-3090)", "Muhammad Ali (24I-3158)",
+        "2.7",
+        "Phase 2",
+        "Milestone 14",
+        "Shahzad Ahmad (24I-3090)",
+        "Muhammad Ali (24I-3158)",
         "Document 10 specific failure positions (5 false positives, 5 false negatives) with chess analysis.",
         "Misclassified test records in `evaluation_results.csv`.",
         "`docs/failure_analysis.md` with FENs, move sequences, and chess explanations.",
@@ -1238,14 +1470,17 @@ phase_2_subtasks = [
         """1. Identify 5 representative false positives and 5 false negatives.
 2. Draft `docs/failure_analysis.md`.
 3. Review chess analysis with both group members.""",
-        "- Candid, thorough analysis of model limitations.\n- Demonstrates genuine scientific understanding for course evaluation."
+        "- Candid, thorough analysis of model limitations.\n- Demonstrates genuine scientific understanding for course evaluation.",
     ),
-
     # Task 2.8
     (
         "SUBTASK_2_8_1_ACADEMIC_REPORT_AUTHORING.md",
         "Subtask 2.8.1: Formal Academic Project Report Authoring",
-        "2.8", "Phase 2", "Milestone 15", "Shared (Both Members)", "Shahzad Ahmad & Muhammad Ali",
+        "2.8",
+        "Phase 2",
+        "Milestone 15",
+        "Shared (Both Members)",
+        "Shahzad Ahmad & Muhammad Ali",
         "Author comprehensive publication-grade academic project report conforming to all AI2002 guidelines.",
         "Experimental results, architectures, and evaluation data.",
         "`docs/report.pdf` (or `docs/REPORT.md`).",
@@ -1264,12 +1499,16 @@ phase_2_subtasks = [
 2. Integrate figures, metric tables, and bibliography.
 3. Compile to PDF (`docs/report.pdf`).
 4. Both members review for accuracy and completeness.""",
-        "- Report contains complete measured results (no placeholder text).\n- Fully complies with all AI2002 Course Learning Outcomes (CLO 1, 2, 3)."
+        "- Report contains complete measured results (no placeholder text).\n- Fully complies with all AI2002 Course Learning Outcomes (CLO 1, 2, 3).",
     ),
     (
         "SUBTASK_2_8_2_SYSTEM_PIPELINE_DIAGRAM.md",
         "Subtask 2.8.2: Publication-Grade System Architecture & Pipeline Diagram",
-        "2.8", "Phase 2", "Milestone 15", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.8",
+        "Phase 2",
+        "Milestone 15",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Generate high-resolution system architecture and software workflow diagram.",
         "System architecture specification.",
         "`docs/figures/system_pipeline.png`.",
@@ -1283,12 +1522,16 @@ phase_2_subtasks = [
         """1. Design diagram using Mermaid / SVG / Matplotlib / Draw.io.
 2. Export high-res PNG to `docs/figures/system_pipeline.png`.
 3. Embed diagram into report and presentation slides.""",
-        "- Clean, professional visual representation of end-to-end pipeline.\n- Matches actual codebase implementation exactly."
+        "- Clean, professional visual representation of end-to-end pipeline.\n- Matches actual codebase implementation exactly.",
     ),
     (
         "SUBTASK_2_8_3_PRESENTATION_SLIDE_DECK.md",
         "Subtask 2.8.3: Project Presentation Slide Deck Preparation",
-        "2.8", "Phase 2", "Milestone 15", "Shared (Both Members)", "Muhammad Ali & Shahzad Ahmad",
+        "2.8",
+        "Phase 2",
+        "Milestone 15",
+        "Shared (Both Members)",
+        "Muhammad Ali & Shahzad Ahmad",
         "Prepare 12-15 slide presentation deck for the live defense (07-09 Dec 2026).",
         "Report contents, pipeline diagrams, and benchmark charts.",
         "`docs/slides/presentation_deck.pptx` or `docs/slides.pdf`.",
@@ -1312,14 +1555,17 @@ phase_2_subtasks = [
         """1. Build slide deck using Markdown/Marp, PowerPoint, or Keynote.
 2. Embed high-resolution plots and board screenshots.
 3. Export final deck to `docs/slides.pdf`.""",
-        "- Visually polished deck covering all mandatory presentation points.\n- Both team members prepared to present their respective sections."
+        "- Visually polished deck covering all mandatory presentation points.\n- Both team members prepared to present their respective sections.",
     ),
-
     # Task 2.9
     (
         "SUBTASK_2_9_1_CLEAN_ENVIRONMENT_VERIFIER.md",
         "Subtask 2.9.1: Clean-Environment Installation & One-Click Launchers",
-        "2.9", "Phase 2", "Milestone 15", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.9",
+        "Phase 2",
+        "Milestone 15",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build installation verification script and one-click launch scripts for live demonstration.",
         "Repository files and checkpoints.",
         "`scripts/verify_install.py`, `run_demo.bat`, `run_demo.sh`.",
@@ -1334,12 +1580,16 @@ phase_2_subtasks = [
         """1. Implement `scripts/verify_install.py`.
 2. Create `run_demo.bat` and `run_demo.sh`.
 3. Test fresh virtual environment rebuild to confirm flawless startup.""",
-        "- `python scripts/verify_install.py` outputs all green checks.\n- `run_demo.bat` launches the browser UI in < 5 seconds."
+        "- `python scripts/verify_install.py` outputs all green checks.\n- `run_demo.bat` launches the browser UI in < 5 seconds.",
     ),
     (
         "SUBTASK_2_9_2_LIVE_DEMO_REHEARSAL_CHECKLIST.md",
         "Subtask 2.9.2: Streamlit Live Demo Rehearsal Checklist & Script",
-        "2.9", "Phase 2", "Milestone 15", "Shared (Both Members)", "Muhammad Ali & Shahzad Ahmad",
+        "2.9",
+        "Phase 2",
+        "Milestone 15",
+        "Shared (Both Members)",
+        "Muhammad Ali & Shahzad Ahmad",
         "Prepare step-by-step demonstration script and rehearsal checklist for the 5-7 minute defense.",
         "Running Streamlit app and curated master matches.",
         "`docs/demo_rehearsal_checklist.md` with timed cues.",
@@ -1354,12 +1604,16 @@ phase_2_subtasks = [
         """1. Draft `docs/demo_rehearsal_checklist.md`.
 2. Conduct timed live trial runs with both members.
 3. Verify backup sample PGNs in case of internet outage.""",
-        "- Both members execute seamless handoffs during the demonstration.\n- Demo completes within the allotted 5-7 minute defense window."
+        "- Both members execute seamless handoffs during the demonstration.\n- Demo completes within the allotted 5-7 minute defense window.",
     ),
     (
         "SUBTASK_2_9_3_SINGLE_GCR_SUBMISSION_ZIP.md",
         "Subtask 2.9.3: Single GCR Submission ZIP Packager & Verification",
-        "2.9", "Phase 2", "Milestone 15", "Muhammad Ali (24I-3158)", "Shahzad Ahmad (24I-3090)",
+        "2.9",
+        "Phase 2",
+        "Milestone 15",
+        "Muhammad Ali (24I-3158)",
+        "Shahzad Ahmad (24I-3090)",
         "Build packaging script to generate single consolidated submission ZIP file for GCR.",
         "Complete repository deliverables.",
         "`scripts/package_submission.py` and `MindCheck_Group29_Submission.zip`.",
@@ -1377,7 +1631,7 @@ phase_2_subtasks = [
         """1. Implement `scripts/package_submission.py`.
 2. Generate submission ZIP.
 3. Test extracting ZIP in an isolated test folder and running `run_demo.bat`.""",
-        "- Generated ZIP contains all mandatory course deliverables.\n- Submits successfully to Google Classroom before 06 Dec 2026."
+        "- Generated ZIP contains all mandatory course deliverables.\n- Submits successfully to Google Classroom before 06 Dec 2026.",
     ),
 ]
 
@@ -1425,9 +1679,24 @@ SUBTASK_TEMPLATE = """# {title}
 {acceptance_criteria}
 """
 
+
 def generate_all():
     print(f"Generating {len(phase_1_subtasks)} Phase 1 subtask files...")
-    for filename, title, task_id, phase, milestone, owner, collaborator, context, inputs, outputs, tech_spec, action_plan, acceptance in phase_1_subtasks:
+    for (
+        filename,
+        title,
+        task_id,
+        phase,
+        milestone,
+        owner,
+        collaborator,
+        context,
+        inputs,
+        outputs,
+        tech_spec,
+        action_plan,
+        acceptance,
+    ) in phase_1_subtasks:
         subtask_id = filename.replace(".md", "").replace("SUBTASK_", "").replace("_", ".")
         content = SUBTASK_TEMPLATE.format(
             title=title,
@@ -1442,12 +1711,26 @@ def generate_all():
             outputs=outputs,
             tech_spec=tech_spec,
             action_plan=action_plan,
-            acceptance_criteria=acceptance
+            acceptance_criteria=acceptance,
         )
         write_subtask_file(P1_SUBTASKS_DIR, filename, content)
 
     print(f"Generating {len(phase_2_subtasks)} Phase 2 subtask files...")
-    for filename, title, task_id, phase, milestone, owner, collaborator, context, inputs, outputs, tech_spec, action_plan, acceptance in phase_2_subtasks:
+    for (
+        filename,
+        title,
+        task_id,
+        phase,
+        milestone,
+        owner,
+        collaborator,
+        context,
+        inputs,
+        outputs,
+        tech_spec,
+        action_plan,
+        acceptance,
+    ) in phase_2_subtasks:
         subtask_id = filename.replace(".md", "").replace("SUBTASK_", "").replace("_", ".")
         content = SUBTASK_TEMPLATE.format(
             title=title,
@@ -1462,11 +1745,12 @@ def generate_all():
             outputs=outputs,
             tech_spec=tech_spec,
             action_plan=action_plan,
-            acceptance_criteria=acceptance
+            acceptance_criteria=acceptance,
         )
         write_subtask_file(P2_SUBTASKS_DIR, filename, content)
 
     print(f"Total subtasks generated: {len(phase_1_subtasks) + len(phase_2_subtasks)}")
+
 
 if __name__ == "__main__":
     generate_all()

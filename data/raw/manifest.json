@@ -1,0 +1,11 @@
+{
+  "archive_name": "Lichess Elite Database Subset",
+  "provider": "Lichess.org / nikonoel (Public Domain)",
+  "source_url": "https://database.nikonoel.fr/lichess_elite_2025-11.zip",
+  "pgn_path": "data\\raw\\lichess_elite_subset.pgn",
+  "min_elo": 2200,
+  "total_games": 3000,
+  "license": "CC0 1.0 / Open Data",
+  "sha256_checksum": "3fe6364c8dea3287c5e3c6e45d7b0015be9b80895651e298f55d727e4a106e1b",
+  "download_timestamp": "2026-11-11T20:03:16.544290+00:00"
+}

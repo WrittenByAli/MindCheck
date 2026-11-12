@@ -1,4 +1,6 @@
 [flake8]
+# generate_subtasks.py is a one-off codegen script (already run) with long
+# embedded markdown templates; excluded rather than reformatted.
 max-line-length = 120
 extend-ignore = E203, W503
 exclude =
@@ -9,7 +11,8 @@ exclude =
     build,
     dist,
     .eggs,
-    *.egg-info
+    *.egg-info,
+    scripts/generate_subtasks.py
 max-complexity = 12
 per-file-ignores =
     __init__.py: F401
