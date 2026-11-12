@@ -172,14 +172,25 @@ class SymbolicRuleEngine:
     # Window-move helpers                                                 #
     # ------------------------------------------------------------------ #
     def _window_moves(self, history: List[chess.Board]):
-        """Yield (board_after, move, mover_color, piece_type) for each window ply."""
-        out = []
-        for board in history:
-            if board.move_stack:
-                move = board.peek()
-                piece = board.piece_at(move.to_square)
-                if piece is not None:
-                    out.append((board, move, not board.turn, piece.piece_type))
+        """Return ``[(board_after, move, mover_color, piece_type), ...]``.
+
+        Infers each move by comparing consecutive boards so that the
+        result is correct regardless of whether boards retain a
+        ``move_stack`` (production windows use ``copy(stack=False)``).
+        """
+        out: List[Tuple[chess.Board, chess.Move, chess.Color, int]] = []
+        for i in range(1, len(history)):
+            prev, curr = history[i - 1], history[i]
+            mover = prev.turn
+            target_fen = curr.board_fen()
+            for candidate in prev.legal_moves:
+                test = prev.copy(stack=False)
+                test.push(candidate)
+                if test.board_fen() == target_fen:
+                    piece = prev.piece_at(candidate.from_square)
+                    if piece is not None:
+                        out.append((curr, candidate, mover, piece.piece_type))
+                    break
         return out
 
     def _pawn_pushes_on_files(self, history: List[chess.Board], color: chess.Color, files: set):

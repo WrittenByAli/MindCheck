@@ -234,7 +234,8 @@ class ChessFactExtractor:
             if self._enemy_pawn_can_attack(s, color, enemy_pawns):
                 continue  # contestable by an enemy pawn -> not a true outpost
             occupied_by_minor = bool(minors & bb)
-            reachable = bool(minor_attacks & bb) and not (own_occupied & bb)
+            enemy_occupied = bool(board.occupied_co[not color] & bb)
+            reachable = bool(minor_attacks & bb) and not (own_occupied & bb) and not enemy_occupied
             if occupied_by_minor or reachable:
                 outposts.append(s)
                 if occupied_by_minor:
@@ -246,9 +247,22 @@ class ChessFactExtractor:
     # ------------------------------------------------------------------ #
     def _rook_batteries(self, board: chess.Board, color: chess.Color) -> List[int]:
         heavy = board.pieces_mask(chess.ROOK, color) | board.pieces_mask(chess.QUEEN, color)
+        entry_ranks = (
+            (chess.BB_RANK_7 | chess.BB_RANK_8)
+            if color == chess.WHITE
+            else (chess.BB_RANK_1 | chess.BB_RANK_2)
+        )
         files: List[int] = []
         for f in range(8):
-            if chess.popcount(heavy & chess.BB_FILES[f]) >= 2:
+            file_mask = chess.BB_FILES[f]
+            if chess.popcount(heavy & file_mask) < 2:
+                continue
+            has_entry_control = False
+            for sq in chess.scan_forward(heavy & file_mask):
+                if board.attacks_mask(sq) & entry_ranks & file_mask:
+                    has_entry_control = True
+                    break
+            if has_entry_control:
                 files.append(f)
         return files
 

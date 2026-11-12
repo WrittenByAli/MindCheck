@@ -16,12 +16,15 @@ EXTRACTOR = ChessFactExtractor()
 def window(
     fen: Optional[str] = None, moves: Optional[List[str]] = None, history_length: int = 8
 ) -> Tuple[List[chess.Board], ExtractedBoardFacts]:
-    """Build an (history, facts) pair by playing SAN moves from a start position."""
+    """Build an (history, facts) pair by playing SAN moves from a start position.
+
+    Uses ``stack=False`` to match the real pipeline (``extract_windows``).
+    """
     board = chess.Board(fen) if fen else chess.Board()
-    snapshots = [board.copy()]
+    snapshots = [board.copy(stack=False)]
     for san in moves or []:
         board.push_san(san)
-        snapshots.append(board.copy())
+        snapshots.append(board.copy(stack=False))
     history = snapshots[-history_length:]
     facts = EXTRACTOR.extract_facts(history[-1])
     return history, facts

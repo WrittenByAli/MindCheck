@@ -75,6 +75,14 @@ def test_outpost_rejected_when_contestable_by_enemy_pawn() -> None:
     assert chess.D5 not in f.white_outpost_squares
 
 
+def test_enemy_piece_on_square_is_not_outpost() -> None:
+    # Black knight sits on d5 which White's e4 pawn defends — but d5 is
+    # enemy-occupied, so it must NOT appear in white_outpost_squares.
+    f = facts("7k/8/8/3n4/4P3/8/8/4KN2 w - - 0 1")
+    assert chess.D5 not in f.white_outpost_squares
+    assert chess.D5 not in f.white_occupied_outposts
+
+
 def test_no_outpost_without_pawn_support() -> None:
     # Knight on d5 but no friendly pawn defends it -> not an outpost.
     f = facts("7k/8/3p4/3N4/8/8/8/4K3 w - - 0 1")
