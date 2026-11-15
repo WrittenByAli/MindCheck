@@ -83,7 +83,11 @@ data/raw/*.tar.gz
 data/processed/*.parquet
 data/processed/*.h5
 data/processed/*.npy
+data/processed/*.csv
+data/processed/dataset_summary.json
+experiments/plots/*.png
 !data/processed/.gitkeep
+!experiments/plots/.gitkeep
 
 # Heavy Model Checkpoints (Keep .gitkeep; upload releases or checkpoints to Drive / Releases)
 models/checkpoints/*.pt
