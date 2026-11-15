@@ -212,7 +212,13 @@ def filter_and_balance(
     num_classes = sum(1 for v in counts.values() if v > 0)
     effective_fraction = max(max_class_fraction, 1.0 / num_classes) if num_classes else 1.0
 
-    for _ in range(len(counts) + 1):
+    # Each non-breaking pass strictly reduces the worst class's count by at
+    # least 1 (it is only reassigned when its current value exceeds the
+    # target), so the initial total is a safe bound on passes needed to reach
+    # a fixed point. `len(counts) + 1` previously assumed one pass per class,
+    # which only holds when one class dominates; with several comparably-sized
+    # classes it stopped early and left the cap violated.
+    for _ in range(sum(counts.values()) + 1):
         total = sum(counts.values())
         if total == 0:
             break
@@ -220,7 +226,11 @@ def filter_and_balance(
         if counts[worst] <= effective_fraction * total + 1e-9:
             break
         others = total - counts[worst]
-        allowed = int(math.floor(effective_fraction / (1.0 - effective_fraction) * others))
+        # `+ 1e-9` guards against float error landing an exact-integer target
+        # just under its true value (e.g. 6.999999999999999 instead of 7),
+        # which would floor it one short and, compounded over iterations,
+        # decay every class toward zero instead of settling at the target.
+        allowed = int(math.floor(effective_fraction / (1.0 - effective_fraction) * others + 1e-9))
         counts[worst] = max(allowed, 0)
 
     rng = random.Random(seed)

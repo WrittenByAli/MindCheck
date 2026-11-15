@@ -153,6 +153,47 @@ def test_class_balancing_no_class_over_fraction() -> None:
         assert n <= 0.30 * total + 1e-9, f"{cls} is {n}/{total}"
 
 
+def test_class_balancing_does_not_collapse_to_zero() -> None:
+    # Reproduces counts seen from a real generate_dataset.py run (11/11/3
+    # across 3 classes, target fraction 0.30 -> effective 1/3). The per-pass
+    # target here lands exactly on an integer (e.g. 7.0), but float division
+    # computed it as 6.999999999999999: floor() then undercounted by one on
+    # every pass, and since the under-shoot recurred each time a class was
+    # revisited, repeated passes decayed every class to 0 instead of settling
+    # at the balanced fixed point.
+    recs: List[LabeledPositionRecord] = []
+    for i in range(11):
+        recs.append(record("OUTPOST", 0.90, game_id=f"o{i}", ply=i))
+    for i in range(11):
+        recs.append(record("Q_EXP", 0.90, game_id=f"q{i}", ply=i))
+    for i in range(3):
+        recs.append(record("NO_PLAN", 0.90, game_id=f"n{i}", ply=i))
+    out = filter_and_balance(recs, max_per_game=1000, max_class_fraction=0.30)
+    assert len(out) > 0
+    counts = collections.Counter(r.label_class for r in out)
+    total = len(out)
+    for cls, n in counts.items():
+        assert n <= (1.0 / 3) * total + 1e-6, f"{cls} is {n}/{total}"
+
+
+def test_class_balancing_converges_with_several_comparable_classes() -> None:
+    # Three near-equal large classes plus one tiny one: a single greedy pass
+    # per class (the old `len(counts) + 1` iteration bound) stops before the
+    # cap is actually satisfied, since fixing one class shrinks the total and
+    # pushes the next-largest class back over the fraction.
+    recs: List[LabeledPositionRecord] = []
+    for cls in ["K_STORM", "Q_EXP", "OUTPOST"]:
+        for i in range(100):
+            recs.append(record(cls, 0.90, game_id=f"{cls}{i}", ply=i))
+    recs.append(record("ROOK_FILE", 0.90, game_id="rf0", ply=0))
+    out = filter_and_balance(recs, max_per_game=1000, max_class_fraction=0.30)
+    counts = collections.Counter(r.label_class for r in out)
+    total = len(out)
+    assert total > 0
+    for cls, n in counts.items():
+        assert n <= 0.30 * total + 1e-9, f"{cls} is {n}/{total}"
+
+
 def test_filter_is_deterministic() -> None:
     recs = [record("NO_PLAN", 0.9, game_id=f"g{i}", ply=i) for i in range(40)]
     recs += [record("K_STORM", 0.9, game_id=f"k{i}", ply=i) for i in range(20)]
