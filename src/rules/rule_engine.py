@@ -67,6 +67,10 @@ class SymbolicRuleEngine:
         self.threshold = activation_threshold
         self.ambiguity_margin = ambiguity_margin
         self._extractor = ChessFactExtractor()
+        # Memoizes window-move inference, which is recomputed by several rules
+        # over the same history within one evaluation. Keyed by the full FEN of
+        # each board (so castling/en-passant differences never collide).
+        self._move_cache: Dict[Tuple[str, ...], list] = {}
 
     # ------------------------------------------------------------------ #
     # Top-level classifier (Subtask 1.4.6)                               #
@@ -172,6 +176,23 @@ class SymbolicRuleEngine:
     # Window-move helpers                                                 #
     # ------------------------------------------------------------------ #
     def _window_moves(self, history: List[chess.Board]):
+        """Memoized wrapper over :meth:`_compute_window_moves`.
+
+        Several rules infer the window's moves from the same history during one
+        evaluation; caching by the boards' FENs turns ~6 identical inferences
+        into one. The cache is bounded and cleared when it grows large.
+        """
+        key = tuple(board.fen() for board in history)
+        cached = self._move_cache.get(key)
+        if cached is not None:
+            return cached
+        result = self._compute_window_moves(history)
+        if len(self._move_cache) >= 256:
+            self._move_cache.clear()
+        self._move_cache[key] = result
+        return result
+
+    def _compute_window_moves(self, history: List[chess.Board]):
         """Return ``[(board_after, move, mover_color, piece_type), ...]``.
 
         Infers each move by comparing consecutive boards so that the
