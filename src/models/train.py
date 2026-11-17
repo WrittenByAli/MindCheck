@@ -217,7 +217,12 @@ def prepare_datasets(
     from src.data.chess_dataset import ChessPlanDataset
     from src.data.dataset_splitter import GameLevelSplitter
     from src.data.pgn_parser import StreamingPGNParser
-    from src.data.weak_labeler import RetrospectiveWeakLabeler, default_game_id, filter_and_balance
+    from src.data.weak_labeler import (
+        RetrospectiveWeakLabeler,
+        balance_classes,
+        default_game_id,
+        filter_and_balance,
+    )
     from src.data.window_extractor import extract_windows
 
     parser = StreamingPGNParser()
@@ -239,15 +244,25 @@ def prepare_datasets(
                 windows_by_id[record.window_id] = window
                 records.append(record)
 
-    kept = filter_and_balance(records, seed=seed)
+    # Quality-filter every record, but DO NOT class-balance yet: balancing must
+    # run after the game-level split and only on the train split, so val/test
+    # keep their natural class distribution and stay honest evaluation sets.
+    kept = filter_and_balance(records, seed=seed, balance=False)
     GameLevelSplitter(seed=seed).split(kept)
 
-    buckets: Dict[str, Tuple[list, list]] = {"train": ([], []), "val": ([], []), "test": ([], [])}
-    for record in kept:
-        ws, ls = buckets[record.split]
-        ws.append(windows_by_id[record.window_id])
-        ls.append(record.label_id)
-    return {split: ChessPlanDataset(ws, ls) for split, (ws, ls) in buckets.items()}
+    train_records = balance_classes([r for r in kept if r.split == "train"], seed=seed)
+    split_records = {
+        "train": train_records,
+        "val": [r for r in kept if r.split == "val"],
+        "test": [r for r in kept if r.split == "test"],
+    }
+
+    datasets = {}
+    for split, recs in split_records.items():
+        windows = [windows_by_id[r.window_id] for r in recs]
+        labels = [r.label_id for r in recs]
+        datasets[split] = ChessPlanDataset(windows, labels)
+    return datasets
 
 
 def main(argv: Optional[List[str]] = None) -> int:

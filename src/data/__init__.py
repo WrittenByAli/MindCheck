@@ -7,6 +7,7 @@ from src.data.tensor_encoder import BoardPlaneEncoder, ChessTensorEncoder
 from src.data.weak_labeler import (
     LabeledPositionRecord,
     RetrospectiveWeakLabeler,
+    balance_classes,
     filter_and_balance,
 )
 from src.data.window_extractor import PositionWindow, default_game_id, extract_windows
@@ -19,6 +20,7 @@ __all__ = [
     "RetrospectiveWeakLabeler",
     "LabeledPositionRecord",
     "filter_and_balance",
+    "balance_classes",
     "GameLevelSplitter",
     "BoardPlaneEncoder",
     "ChessTensorEncoder",
