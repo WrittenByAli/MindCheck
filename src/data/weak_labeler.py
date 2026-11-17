@@ -38,6 +38,7 @@ __all__ = [
     "LabeledPositionRecord",
     "RetrospectiveWeakLabeler",
     "filter_and_balance",
+    "balance_classes",
     "material_balance",
     "PLAN_ORDER",
     "PLAN_IDS",
@@ -177,12 +178,20 @@ def filter_and_balance(
     max_per_game: int = 25,
     max_class_fraction: float = 0.30,
     seed: int = 42,
+    balance: bool = True,
 ) -> List[LabeledPositionRecord]:
-    """Clean and balance raw weak-labeled records (Subtask 1.5.2).
+    """Clean and (optionally) balance raw weak-labeled records (Subtask 1.5.2).
 
     Steps: drop low-confidence / lopsided-material records, cap each game's
-    contribution, then downsample any class exceeding ``max_class_fraction`` of
-    the total. Deterministic for a given ``seed``.
+    contribution, then — when ``balance`` is True — downsample any class
+    exceeding ``max_class_fraction`` of the total. Deterministic for ``seed``.
+
+    Class balancing deliberately distorts the label distribution, so it must
+    only ever touch the *training* split: val/test metrics have to reflect the
+    natural class frequencies. Callers that split by game should pass
+    ``balance=False`` here (quality filtering only), run the game-level split,
+    then call :func:`balance_classes` on the train split alone. The default
+    stays ``True`` so existing single-shot callers are unaffected.
     """
     # 1. Confidence and material-sanity filter.
     kept = [
@@ -200,9 +209,26 @@ def filter_and_balance(
         recs.sort(key=lambda r: (-r.weak_confidence, r.ply_index))
         capped.extend(recs[:max_per_game])
 
-    # 3. Class balancing: iteratively cap any over-represented class.
+    if not balance:
+        return capped
+
+    return balance_classes(capped, max_class_fraction=max_class_fraction, seed=seed)
+
+
+def balance_classes(
+    records: List[LabeledPositionRecord],
+    max_class_fraction: float = 0.30,
+    seed: int = 42,
+) -> List[LabeledPositionRecord]:
+    """Downsample over-represented classes to <= ``max_class_fraction`` of total.
+
+    Apply to the training split only (never val/test). Keeps the most confident
+    records of each capped class, breaks ties deterministically, and shuffles
+    the result for a given ``seed``.
+    """
+    # Class balancing: iteratively cap any over-represented class.
     by_class: Dict[str, List[LabeledPositionRecord]] = collections.defaultdict(list)
-    for r in capped:
+    for r in records:
         by_class[r.label_class].append(r)
     counts = {c: len(v) for c, v in by_class.items()}
 

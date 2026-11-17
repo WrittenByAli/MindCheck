@@ -56,7 +56,7 @@ model:
   in_channels: 112
   num_classes: 6
   channels: 64
-  num_blocks: 4
+  num_blocks: 3
   dropout: 0.20
   checkpoint_dir: "models/checkpoints/"
   best_checkpoint_path: "models/checkpoints/best_resnet.pt"
