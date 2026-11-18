@@ -4,6 +4,7 @@ on the exact same (deterministic, seed=42) test split.
 Not a permanent pipeline module -- a one-off comparison script for the
 locked-in training plan's Phase B.
 """
+
 from __future__ import annotations
 
 import sys
@@ -13,14 +14,14 @@ from pathlib import Path
 _REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO_ROOT))
 
-import torch
-from sklearn.metrics import accuracy_score, f1_score
+import torch  # noqa: E402
+from sklearn.metrics import accuracy_score, f1_score  # noqa: E402
 
-from src.models.train import prepare_datasets
-from src.models.residual_cnn import HistoryChessResNet
-from src.models.logger import load_checkpoint
-from src.rules.rule_engine import SymbolicRuleEngine
-from src.data.weak_labeler import PLAN_IDS
+from src.data.weak_labeler import PLAN_IDS  # noqa: E402
+from src.models.logger import load_checkpoint  # noqa: E402
+from src.models.residual_cnn import HistoryChessResNet  # noqa: E402
+from src.models.train import prepare_datasets  # noqa: E402
+from src.rules.rule_engine import SymbolicRuleEngine  # noqa: E402
 
 NUM_CLASSES = 6
 ID_TO_NAME = {v: k for k, v in PLAN_IDS.items()}
