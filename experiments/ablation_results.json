@@ -1,0 +1,146 @@
+[
+  {
+    "variant": "1-ply",
+    "in_channels": 14,
+    "parameters": 230662,
+    "best_val_macro_f1": 0.5162,
+    "final_val_macro_f1": 0.5162,
+    "per_class_f1": [
+      0.4514,
+      0.5632,
+      0.7383,
+      0.5458,
+      0.108,
+      0.6903
+    ],
+    "seed": 42
+  },
+  {
+    "variant": "4-ply",
+    "in_channels": 56,
+    "parameters": 254854,
+    "best_val_macro_f1": 0.5517,
+    "final_val_macro_f1": 0.5517,
+    "per_class_f1": [
+      0.5905,
+      0.6472,
+      0.71,
+      0.5045,
+      0.1201,
+      0.7376
+    ],
+    "seed": 42
+  },
+  {
+    "variant": "8-ply",
+    "in_channels": 112,
+    "parameters": 287110,
+    "best_val_macro_f1": 0.5296,
+    "final_val_macro_f1": 0.5296,
+    "per_class_f1": [
+      0.5507,
+      0.631,
+      0.6957,
+      0.5197,
+      0.0871,
+      0.6939
+    ],
+    "seed": 42
+  },
+  {
+    "variant": "1-ply",
+    "in_channels": 14,
+    "parameters": 230662,
+    "best_val_macro_f1": 0.524,
+    "final_val_macro_f1": 0.524,
+    "per_class_f1": [
+      0.4536,
+      0.5992,
+      0.6962,
+      0.5094,
+      0.1213,
+      0.7641
+    ],
+    "seed": 123
+  },
+  {
+    "variant": "4-ply",
+    "in_channels": 56,
+    "parameters": 254854,
+    "best_val_macro_f1": 0.546,
+    "final_val_macro_f1": 0.546,
+    "per_class_f1": [
+      0.5291,
+      0.6245,
+      0.7175,
+      0.4879,
+      0.1512,
+      0.7659
+    ],
+    "seed": 123
+  },
+  {
+    "variant": "8-ply",
+    "in_channels": 112,
+    "parameters": 287110,
+    "best_val_macro_f1": 0.5232,
+    "final_val_macro_f1": 0.5232,
+    "per_class_f1": [
+      0.4997,
+      0.6415,
+      0.6715,
+      0.4743,
+      0.0997,
+      0.7525
+    ],
+    "seed": 123
+  },
+  {
+    "variant": "1-ply",
+    "in_channels": 14,
+    "parameters": 230662,
+    "best_val_macro_f1": 0.5314,
+    "final_val_macro_f1": 0.5314,
+    "per_class_f1": [
+      0.523,
+      0.5936,
+      0.705,
+      0.57,
+      0.069,
+      0.7277
+    ],
+    "seed": 999
+  },
+  {
+    "variant": "4-ply",
+    "in_channels": 56,
+    "parameters": 254854,
+    "best_val_macro_f1": 0.5717,
+    "final_val_macro_f1": 0.5717,
+    "per_class_f1": [
+      0.5981,
+      0.6581,
+      0.7094,
+      0.5683,
+      0.1206,
+      0.7759
+    ],
+    "seed": 999
+  },
+  {
+    "variant": "8-ply",
+    "in_channels": 112,
+    "parameters": 287110,
+    "best_val_macro_f1": 0.5416,
+    "final_val_macro_f1": 0.5416,
+    "per_class_f1": [
+      0.6088,
+      0.6399,
+      0.6565,
+      0.5397,
+      0.0785,
+      0.7263
+    ],
+    "seed": 999
+  }
+]

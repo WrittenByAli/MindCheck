@@ -98,6 +98,9 @@ models/checkpoints/*.onnx
 experiments/*.json
 experiments/plots/*.png
 !experiments/plots/.gitkeep
+# Keep committed experimental evidence (small result summaries, not checkpoints)
+!experiments/ablation_results.json
+!experiments/training_history.json
 
 # Temporary / Scratch Scripts & Logs
 *.log
