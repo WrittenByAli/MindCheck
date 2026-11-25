@@ -56,6 +56,20 @@ class RuleEvaluationResult:
     supporting_evidence: List[str] = field(default_factory=list)
 
 
+def _placement(board: chess.Board) -> Tuple[int, ...]:
+    """Piece placement as bitboards; equal iff ``board_fen()`` strings are equal."""
+    return (
+        board.occupied_co[chess.WHITE],
+        board.occupied_co[chess.BLACK],
+        board.pawns,
+        board.knights,
+        board.bishops,
+        board.rooks,
+        board.queens,
+        board.kings,
+    )
+
+
 def _color_name(color: chess.Color) -> str:
     return "White" if color == chess.WHITE else "Black"
 
@@ -203,11 +217,13 @@ class SymbolicRuleEngine:
         for i in range(1, len(history)):
             prev, curr = history[i - 1], history[i]
             mover = prev.turn
-            target_fen = curr.board_fen()
+            target = _placement(curr)
             for candidate in prev.legal_moves:
+                if curr.occupied & chess.BB_SQUARES[candidate.from_square]:
+                    continue  # a move always vacates its origin square
                 test = prev.copy(stack=False)
                 test.push(candidate)
-                if test.board_fen() == target_fen:
+                if _placement(test) == target:
                     piece = prev.piece_at(candidate.from_square)
                     if piece is not None:
                         out.append((curr, candidate, mover, piece.piece_type))

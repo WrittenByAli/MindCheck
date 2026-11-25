@@ -219,13 +219,18 @@ def balance_classes(
     records: List[LabeledPositionRecord],
     max_class_fraction: float = 0.30,
     seed: int = 42,
+    select: str = "confidence",
 ) -> List[LabeledPositionRecord]:
     """Downsample over-represented classes to <= ``max_class_fraction`` of total.
 
-    Apply to the training split only (never val/test). Keeps the most confident
-    records of each capped class, breaks ties deterministically, and shuffles
-    the result for a given ``seed``.
+    Apply to the training split only (never val/test). ``select="confidence"``
+    keeps the most confident records of each capped class (ties broken
+    deterministically); ``select="random"`` keeps a seeded uniform sample, so the
+    kept windows are as hard as the natural distribution. The result is shuffled
+    for a given ``seed``.
     """
+    if select not in ("confidence", "random"):
+        raise ValueError(f"select must be 'confidence' or 'random', got {select!r}.")
     # Class balancing: iteratively cap any over-represented class.
     by_class: Dict[str, List[LabeledPositionRecord]] = collections.defaultdict(list)
     for r in records:
@@ -264,6 +269,9 @@ def balance_classes(
     for cls, recs in by_class.items():
         if counts[cls] >= len(recs):
             result.extend(recs)
+        elif select == "random":
+            ordered = sorted(recs, key=lambda r: r.window_id)
+            result.extend(random.Random(f"{seed}:{cls}").sample(ordered, counts[cls]))
         else:
             # Keep the most confident, breaking ties deterministically.
             recs_sorted = sorted(recs, key=lambda r: (-r.weak_confidence, r.window_id))

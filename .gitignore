@@ -85,6 +85,8 @@ data/processed/*.h5
 data/processed/*.npy
 data/processed/*.csv
 data/processed/dataset_summary.json
+# Generated dataset caches (scaled_80k, allpos, holdouts): multi-GB, rebuilt by scripts
+data/processed/*/
 experiments/plots/*.png
 !data/processed/.gitkeep
 !experiments/plots/.gitkeep

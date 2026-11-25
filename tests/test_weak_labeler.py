@@ -11,6 +11,7 @@ import chess.pgn
 from src.data.weak_labeler import (
     LabeledPositionRecord,
     RetrospectiveWeakLabeler,
+    balance_classes,
     filter_and_balance,
     material_balance,
 )
@@ -200,3 +201,45 @@ def test_filter_is_deterministic() -> None:
     a = filter_and_balance(recs, seed=7)
     b = filter_and_balance(recs, seed=7)
     assert [r.window_id for r in a] == [r.window_id for r in b]
+
+
+def _skewed_records() -> List[LabeledPositionRecord]:
+    recs: List[LabeledPositionRecord] = []
+    for i in range(200):  # NO_PLAN with a spread of confidences
+        recs.append(record("NO_PLAN", 0.55 + 0.002 * i, game_id=f"np{i}", ply=i))
+    for cls in ["K_STORM", "Q_EXP", "OUTPOST", "ROOK_FILE", "CHAIN_UNDERMINE"]:
+        for i in range(20):
+            recs.append(record(cls, 0.90, game_id=f"{cls}{i}", ply=i))
+    return recs
+
+
+def test_random_balancing_respects_cap_and_counts() -> None:
+    recs = _skewed_records()
+    conf = balance_classes(recs, max_class_fraction=0.30, seed=7, select="confidence")
+    rand = balance_classes(recs, max_class_fraction=0.30, seed=7, select="random")
+    count = lambda out: collections.Counter(r.label_class for r in out)  # noqa: E731
+    assert count(conf) == count(rand)  # same per-class targets, only selection differs
+    assert max(count(rand).values()) <= 0.30 * len(rand) + 1e-9
+
+
+def test_random_balancing_keeps_harder_windows_than_confidence() -> None:
+    recs = _skewed_records()
+    mean_conf = lambda out: sum(  # noqa: E731
+        r.weak_confidence for r in out if r.label_class == "NO_PLAN"
+    ) / sum(1 for r in out if r.label_class == "NO_PLAN")
+    conf = balance_classes(recs, seed=7, select="confidence")
+    rand = balance_classes(recs, seed=7, select="random")
+    assert mean_conf(rand) < mean_conf(conf)
+
+
+def test_random_balancing_is_deterministic_and_validated() -> None:
+    recs = _skewed_records()
+    a = [r.window_id for r in balance_classes(recs, seed=3, select="random")]
+    b = [r.window_id for r in balance_classes(recs, seed=3, select="random")]
+    assert a == b
+    try:
+        balance_classes(recs, select="bogus")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("invalid select should raise")
