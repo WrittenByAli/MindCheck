@@ -120,30 +120,38 @@ class ModelTrainer:
         self.best_f1 = -float("inf")
         self.best_epoch = 0
 
-    def training_step(self, tensors: torch.Tensor, labels: torch.Tensor) -> float:
-        """One forward/backward/update step; returns the scalar loss."""
-        self.model.train()
-        tensors = tensors.to(self.device)
-        labels = labels.to(self.device)
+    def _update(
+        self, tensors: torch.Tensor, labels: torch.Tensor
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """One optimizer step on device tensors; returns detached (loss, logits)."""
         self.optimizer.zero_grad()
         logits = self.model(tensors)
         loss = self.criterion(logits, labels)
         loss.backward()
         nn.utils.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
         self.optimizer.step()
+        return loss.detach(), logits.detach()
+
+    def training_step(self, tensors: torch.Tensor, labels: torch.Tensor) -> float:
+        """One forward/backward/update step; returns the scalar loss."""
+        self.model.train()
+        loss, _ = self._update(tensors.to(self.device), labels.to(self.device))
         return float(loss.item())
 
     def train_epoch(self) -> Tuple[float, float]:
+        """One pass over the train loader; accuracy uses each step's own logits."""
         self.model.train()
-        total_loss, n, correct = 0.0, 0, 0
+        n = 0
+        # Accumulated on device so a GPU run does not synchronize every batch.
+        total_loss = torch.zeros((), dtype=torch.float64, device=self.device)
+        correct = torch.zeros((), dtype=torch.long, device=self.device)
         for tensors, _masks, labels in self.train_loader:
-            loss = self.training_step(tensors, labels)
-            with torch.no_grad():
-                logits = self.model(tensors.to(self.device))
-                correct += int((logits.argmax(-1).cpu() == labels).sum().item())
-            total_loss += loss * len(labels)
+            labels = labels.to(self.device)
+            loss, logits = self._update(tensors.to(self.device), labels)
+            total_loss += loss.double() * len(labels)
+            correct += (logits.argmax(-1) == labels).sum()
             n += len(labels)
-        return total_loss / max(n, 1), correct / max(n, 1)
+        return float(total_loss.item()) / max(n, 1), int(correct.item()) / max(n, 1)
 
     @torch.no_grad()
     def evaluate(self, loader: DataLoader) -> Tuple[float, float, float, List[float]]:
