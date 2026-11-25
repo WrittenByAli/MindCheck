@@ -1,0 +1,171 @@
+{
+  "variant": "D_random_balance",
+  "seed": 999,
+  "selected_by": "validation bias-adjusted held-out-fold macro-F1",
+  "input": "(B,112,8,8) float32; the newest channels are sliced internally",
+  "keep_channels": 56,
+  "config": {
+    "keep": 56,
+    "mirror": true,
+    "dropout": 0.3,
+    "weight_decay": 0.001,
+    "balance": "random"
+  },
+  "class_names": [
+    "K_STORM",
+    "Q_EXP",
+    "OUTPOST",
+    "ROOK_FILE",
+    "CHAIN_UNDERMINE",
+    "NO_PLAN"
+  ],
+  "logit_bias": {
+    "K_STORM": -0.9583333333333334,
+    "Q_EXP": 0.04166666666666663,
+    "OUTPOST": 0.7916666666666666,
+    "ROOK_FILE": -0.45833333333333337,
+    "CHAIN_UNDERMINE": -0.7083333333333334,
+    "NO_PLAN": 1.2916666666666665
+  },
+  "labels": "rule-engine weak labels; not validated against human annotation",
+  "validation": {
+    "val_raw_macro_f1": 0.6695163977808134,
+    "bias_heldout_macro_f1": 0.7269338412459261,
+    "macro_f1_gap": 0.01879889279668201,
+    "accuracy_gap": 0.011199999999999988,
+    "best_epoch": 5,
+    "hit_epoch_cap": false,
+    "per_class_val_f1": {
+      "K_STORM": 0.6666666666666666,
+      "Q_EXP": 0.7754344009972778,
+      "OUTPOST": 0.8818780619891438,
+      "ROOK_FILE": 0.7548881927190234,
+      "CHAIN_UNDERMINE": 0.12574322836379653,
+      "NO_PLAN": 0.8124878359489729
+    },
+    "known_limitations": [
+      "CHAIN_UNDERMINE"
+    ]
+  },
+  "holdout_full_closest_to_live_use": {
+    "raw_macro_f1": 0.5048512256263389,
+    "raw_accuracy": 0.5959379458744039,
+    "raw_per_class_f1": {
+      "K_STORM": 0.4700345405700204,
+      "Q_EXP": 0.5788915321802868,
+      "OUTPOST": 0.731366700574128,
+      "ROOK_FILE": 0.500366400457069,
+      "CHAIN_UNDERMINE": 0.12026643641297644,
+      "NO_PLAN": 0.6281817435635528
+    },
+    "bias_macro_f1": 0.553419449706272,
+    "bias_accuracy": 0.6884058429173279,
+    "bias_per_class_f1": {
+      "K_STORM": 0.5120844207420856,
+      "Q_EXP": 0.5892600019434114,
+      "OUTPOST": 0.7245442443312466,
+      "ROOK_FILE": 0.5625873493480655,
+      "CHAIN_UNDERMINE": 0.1850963843866884,
+      "NO_PLAN": 0.7469442974861344
+    }
+  },
+  "holdout_filtered": {
+    "raw_macro_f1": 0.6695002122112705,
+    "raw_accuracy": 0.79141442686805,
+    "raw_per_class_f1": {
+      "K_STORM": 0.669573394887578,
+      "Q_EXP": 0.7770776610916634,
+      "OUTPOST": 0.8856295603597839,
+      "ROOK_FILE": 0.759435321233074,
+      "CHAIN_UNDERMINE": 0.11023622047244094,
+      "NO_PLAN": 0.8150491152230833
+    },
+    "bias_macro_f1": 0.7231828964983654,
+    "bias_accuracy": 0.8562284220059788,
+    "bias_per_class_f1": {
+      "K_STORM": 0.7409604836001343,
+      "Q_EXP": 0.7963948071993605,
+      "OUTPOST": 0.8956990535521744,
+      "ROOK_FILE": 0.7968306922435363,
+      "CHAIN_UNDERMINE": 0.22325581395348837,
+      "NO_PLAN": 0.8859565284414984
+    }
+  },
+  "holdout_sizes": {
+    "filtered": {
+      "games": 6000,
+      "windows": 146851,
+      "class_counts": {
+        "NO_PLAN": 64067,
+        "K_STORM": 9246,
+        "CHAIN_UNDERMINE": 850,
+        "OUTPOST": 41505,
+        "Q_EXP": 18670,
+        "ROOK_FILE": 12513
+      }
+    },
+    "full": {
+      "games": 6000,
+      "windows": 474489,
+      "class_counts": {
+        "NO_PLAN": 281276,
+        "K_STORM": 31832,
+        "CHAIN_UNDERMINE": 3435,
+        "OUTPOST": 79480,
+        "Q_EXP": 52020,
+        "ROOK_FILE": 26446
+      }
+    }
+  },
+  "gates": {
+    "G1": {
+      "passed": true,
+      "failed_seeds": []
+    },
+    "G2": {
+      "passed": true,
+      "std": 0.002977406499082474,
+      "mean": 0.6721351580855212
+    },
+    "G3": {
+      "passed": true,
+      "abs_diff": {
+        "42": 0.0010453212458819694,
+        "123": 0.0007159730163057709,
+        "999": 1.6185569542859213e-05
+      }
+    }
+  },
+  "test_caveat": "The final test is a fresh holdout from archive games the 80k build never scanned. The old 80k test split is not evaluated (it was evaluated once for variant C in an earlier session). Validation and the filtered holdout keep only confident, balanced windows with a top-25-by-confidence cap, and that confidence uses look-ahead, so they are not natural positions and are likely optimistic; the full-position holdout is closer to live use. All labels are rule-engine weak labels.",
+  "dataset": {
+    "games_valid": 80000,
+    "windows_per_split": {
+      "train": 1368147,
+      "val": 291735,
+      "test": 298907
+    },
+    "games_per_split": {
+      "train": 55867,
+      "val": 11920,
+      "test": 12210
+    }
+  },
+  "correction_G1": {
+    "note": "gates.G1 and validation.*_gap used a measure that included train rows the model never trained on and so understated the gap. Re-measured on trained rows at validation class mix, G1 does NOT pass (seed 42 exceeds both limits by about 0.1 points). The saved seed 999 is within the limits.",
+    "G1_passed_corrected": false,
+    "corrected_gaps_by_seed": {
+      "999": {
+        "macro_f1_gap": 0.023643167057390668,
+        "accuracy_gap": 0.018479863003424857
+      },
+      "42": {
+        "macro_f1_gap": 0.031470858408845115,
+        "accuracy_gap": 0.02072957863553415
+      },
+      "123": {
+        "macro_f1_gap": 0.01928867718437932,
+        "accuracy_gap": 0.01252991925201874
+      }
+    }
+  }
+}

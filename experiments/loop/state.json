@@ -1,0 +1,405 @@
+{
+  "steps": {
+    "train_loopr1_C_4ply_mirror_reg_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\train_loopr1_C_4ply_mirror_reg_s42.json",
+      "seconds": 788.7
+    },
+    "bias_loopr1_C_4ply_mirror_reg_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\bias_loopr1_C_4ply_mirror_reg_s42.json",
+      "seconds": 128.7
+    },
+    "gap_loopr1_C_4ply_mirror_reg_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\gap_loopr1_C_4ply_mirror_reg_s42.json",
+      "seconds": 51.4
+    },
+    "train_loopr1_D_random_balance_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\train_loopr1_D_random_balance_s42.json",
+      "seconds": 751.3
+    },
+    "bias_loopr1_D_random_balance_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\bias_loopr1_D_random_balance_s42.json",
+      "seconds": 113.4
+    },
+    "gap_loopr1_D_random_balance_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\gap_loopr1_D_random_balance_s42.json",
+      "seconds": 50.0
+    },
+    "train_loopr1_E_random_balance_sqrtw_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\train_loopr1_E_random_balance_sqrtw_s42.json",
+      "seconds": 752.8
+    },
+    "bias_loopr1_E_random_balance_sqrtw_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\bias_loopr1_E_random_balance_sqrtw_s42.json",
+      "seconds": 113.5
+    },
+    "gap_loopr1_E_random_balance_sqrtw_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\gap_loopr1_E_random_balance_sqrtw_s42.json",
+      "seconds": 50.6
+    },
+    "train_loopr2_D_random_balance_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\train_loopr2_D_random_balance_s42.json",
+      "seconds": 837.7
+    },
+    "bias_loopr2_D_random_balance_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\bias_loopr2_D_random_balance_s42.json",
+      "seconds": 113.4
+    },
+    "gap_loopr2_D_random_balance_s42": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\gap_loopr2_D_random_balance_s42.json",
+      "seconds": 49.7
+    },
+    "train_loopr2_D_random_balance_s123": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\train_loopr2_D_random_balance_s123.json",
+      "seconds": 656.7
+    },
+    "bias_loopr2_D_random_balance_s123": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\bias_loopr2_D_random_balance_s123.json",
+      "seconds": 122.5
+    },
+    "gap_loopr2_D_random_balance_s123": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\gap_loopr2_D_random_balance_s123.json",
+      "seconds": 54.4
+    },
+    "train_loopr2_D_random_balance_s999": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\train_loopr2_D_random_balance_s999.json",
+      "seconds": 761.4
+    },
+    "bias_loopr2_D_random_balance_s999": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\bias_loopr2_D_random_balance_s999.json",
+      "seconds": 114.1
+    },
+    "gap_loopr2_D_random_balance_s999": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\gap_loopr2_D_random_balance_s999.json",
+      "seconds": 49.6
+    },
+    "ensemble_loopr2_D_random_balance": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\ensemble_loopr2_D_random_balance.json",
+      "seconds": 214.5
+    },
+    "holdout_build": {
+      "output": "D:\\AI_Project\\data\\processed\\holdout_full\\meta.json",
+      "seconds": 214.9
+    },
+    "test_loopr2_D_random_balance_s42_filtered": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\test_loopr2_D_random_balance_s42_filtered.json",
+      "seconds": 10.7
+    },
+    "test_loopr2_D_random_balance_s42_full": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\test_loopr2_D_random_balance_s42_full.json",
+      "seconds": 13.6
+    },
+    "test_loopr2_D_random_balance_s123_filtered": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\test_loopr2_D_random_balance_s123_filtered.json",
+      "seconds": 9.0
+    },
+    "test_loopr2_D_random_balance_s123_full": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\test_loopr2_D_random_balance_s123_full.json",
+      "seconds": 13.4
+    },
+    "test_loopr2_D_random_balance_s999_filtered": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\test_loopr2_D_random_balance_s999_filtered.json",
+      "seconds": 9.2
+    },
+    "test_loopr2_D_random_balance_s999_full": {
+      "output": "D:\\AI_Project\\experiments\\loop\\results\\test_loopr2_D_random_balance_s999_full.json",
+      "seconds": 13.5
+    }
+  },
+  "decisions": {
+    "round1": {
+      "winner": "D_random_balance",
+      "eligible": [],
+      "eligibility_gate_failed": true,
+      "tied": [
+        "D_random_balance",
+        "E_random_balance_sqrtw"
+      ],
+      "table": {
+        "C_4ply_mirror_reg": {
+          "score": 0.7118287103065359,
+          "val_raw_macro_f1": 0.6534659100887273,
+          "macro_f1_gap": 0.03300902576331022,
+          "accuracy_gap": 0.017124999999999946
+        },
+        "D_random_balance": {
+          "score": 0.731364674789742,
+          "val_raw_macro_f1": 0.6771908735809581,
+          "macro_f1_gap": 0.03388973251776939,
+          "accuracy_gap": 0.018100000000000005
+        },
+        "E_random_balance_sqrtw": {
+          "score": 0.7350457889977837,
+          "val_raw_macro_f1": 0.7144297658341522,
+          "macro_f1_gap": 0.05762519661199783,
+          "accuracy_gap": 0.025124999999999953
+        }
+      }
+    },
+    "round2": {
+      "variant": "D_random_balance",
+      "tag": "_loopr2",
+      "G1": {
+        "passed": true,
+        "failed_seeds": []
+      },
+      "G2": {
+        "passed": true,
+        "std": 0.002977406499082474,
+        "mean": 0.6721351580855212
+      },
+      "chosen_seed": 999,
+      "seeds": {
+        "42": {
+          "val_raw_macro_f1": 0.6753736624719885,
+          "bias_heldout_macro_f1": 0.7263477501360789,
+          "macro_f1_gap": 0.02868100623525105,
+          "accuracy_gap": 0.016674999999999995,
+          "best_epoch": 6,
+          "hit_epoch_cap": false,
+          "per_class_val_f1": {
+            "K_STORM": 0.6689104467762159,
+            "Q_EXP": 0.7602192141976589,
+            "OUTPOST": 0.8816229387431291,
+            "ROOK_FILE": 0.7648195636823132,
+            "CHAIN_UNDERMINE": 0.15157838056135156,
+            "NO_PLAN": 0.8250914308712618
+          },
+          "known_limitations": []
+        },
+        "123": {
+          "val_raw_macro_f1": 0.6715154140037617,
+          "bias_heldout_macro_f1": 0.7248824320131435,
+          "macro_f1_gap": 0.01679431277198995,
+          "accuracy_gap": 0.010424999999999907,
+          "best_epoch": 4,
+          "hit_epoch_cap": false,
+          "per_class_val_f1": {
+            "K_STORM": 0.6710029280940566,
+            "Q_EXP": 0.7717425041902042,
+            "OUTPOST": 0.8822011931191011,
+            "ROOK_FILE": 0.7587420277105784,
+            "CHAIN_UNDERMINE": 0.13527477689055895,
+            "NO_PLAN": 0.8101290540180711
+          },
+          "known_limitations": [
+            "CHAIN_UNDERMINE"
+          ]
+        },
+        "999": {
+          "val_raw_macro_f1": 0.6695163977808134,
+          "bias_heldout_macro_f1": 0.7269338412459261,
+          "macro_f1_gap": 0.01879889279668201,
+          "accuracy_gap": 0.011199999999999988,
+          "best_epoch": 5,
+          "hit_epoch_cap": false,
+          "per_class_val_f1": {
+            "K_STORM": 0.6666666666666666,
+            "Q_EXP": 0.7754344009972778,
+            "OUTPOST": 0.8818780619891438,
+            "ROOK_FILE": 0.7548881927190234,
+            "CHAIN_UNDERMINE": 0.12574322836379653,
+            "NO_PLAN": 0.8124878359489729
+          },
+          "known_limitations": [
+            "CHAIN_UNDERMINE"
+          ]
+        }
+      },
+      "ensemble_val_raw_macro_f1": 0.6845075622995779,
+      "ensemble_val_bias_heldout": {
+        "fit_A_score_B": 0.7387394888933989,
+        "fit_B_score_A": 0.7392952208461722
+      }
+    },
+    "test": {
+      "G3": {
+        "passed": true,
+        "abs_diff": {
+          "42": 0.0010453212458819694,
+          "123": 0.0007159730163057709,
+          "999": 1.6185569542859213e-05
+        }
+      },
+      "G3_applies_to": "filtered fresh holdout raw macro-F1 vs validation raw macro-F1",
+      "caveat": "The final test is a fresh holdout from archive games the 80k build never scanned. The old 80k test split is not evaluated (it was evaluated once for variant C in an earlier session). Validation and the filtered holdout keep only confident, balanced windows with a top-25-by-confidence cap, and that confidence uses look-ahead, so they are not natural positions and are likely optimistic; the full-position holdout is closer to live use. All labels are rule-engine weak labels.",
+      "holdout": {
+        "filtered": {
+          "games": 6000,
+          "windows": 146851,
+          "class_counts": {
+            "NO_PLAN": 64067,
+            "K_STORM": 9246,
+            "CHAIN_UNDERMINE": 850,
+            "OUTPOST": 41505,
+            "Q_EXP": 18670,
+            "ROOK_FILE": 12513
+          }
+        },
+        "full": {
+          "games": 6000,
+          "windows": 474489,
+          "class_counts": {
+            "NO_PLAN": 281276,
+            "K_STORM": 31832,
+            "CHAIN_UNDERMINE": 3435,
+            "OUTPOST": 79480,
+            "Q_EXP": 52020,
+            "ROOK_FILE": 26446
+          }
+        }
+      },
+      "seeds": {
+        "42": {
+          "holdout_filtered": {
+            "raw_macro_f1": 0.6743283412261065,
+            "raw_accuracy": 0.7994634016792531,
+            "raw_per_class_f1": {
+              "K_STORM": 0.669763806877388,
+              "Q_EXP": 0.7631226101206734,
+              "OUTPOST": 0.8855014467770732,
+              "ROOK_FILE": 0.7671375852685727,
+              "CHAIN_UNDERMINE": 0.1337024221453287,
+              "NO_PLAN": 0.8267421761676033
+            },
+            "bias_macro_f1": 0.7228930650176603,
+            "bias_accuracy": 0.8584143111044528,
+            "bias_per_class_f1": {
+              "K_STORM": 0.7373221251579584,
+              "Q_EXP": 0.7957300122317358,
+              "OUTPOST": 0.8989336492890996,
+              "ROOK_FILE": 0.794247880909206,
+              "CHAIN_UNDERMINE": 0.22311155577788894,
+              "NO_PLAN": 0.8880131667400728
+            }
+          },
+          "holdout_full": {
+            "raw_macro_f1": 0.5097987663039776,
+            "raw_accuracy": 0.6060393391627624,
+            "raw_per_class_f1": {
+              "K_STORM": 0.47143126927838513,
+              "Q_EXP": 0.5695273061037173,
+              "OUTPOST": 0.7336417561779996,
+              "ROOK_FILE": 0.5209720730397422,
+              "CHAIN_UNDERMINE": 0.12117523751563715,
+              "NO_PLAN": 0.6420449557083845
+            },
+            "bias_macro_f1": 0.5491053669288728,
+            "bias_accuracy": 0.6878262720526714,
+            "bias_per_class_f1": {
+              "K_STORM": 0.5073162597445909,
+              "Q_EXP": 0.5892068507414455,
+              "OUTPOST": 0.7233204120531985,
+              "ROOK_FILE": 0.5664463838302308,
+              "CHAIN_UNDERMINE": 0.16259646897135005,
+              "NO_PLAN": 0.7457458262324209
+            }
+          }
+        },
+        "123": {
+          "holdout_filtered": {
+            "raw_macro_f1": 0.6722313870200675,
+            "raw_accuracy": 0.7930827845911843,
+            "raw_per_class_f1": {
+              "K_STORM": 0.6731534719150818,
+              "Q_EXP": 0.7721812859594226,
+              "OUTPOST": 0.8849939393939394,
+              "ROOK_FILE": 0.762037785782548,
+              "CHAIN_UNDERMINE": 0.12775757575757576,
+              "NO_PLAN": 0.8132642633118371
+            },
+            "bias_macro_f1": 0.7236179670667665,
+            "bias_accuracy": 0.8543898236988512,
+            "bias_per_class_f1": {
+              "K_STORM": 0.7311460971044809,
+              "Q_EXP": 0.7993122764205097,
+              "OUTPOST": 0.8925215723873442,
+              "ROOK_FILE": 0.7914918127211388,
+              "CHAIN_UNDERMINE": 0.24302600472813238,
+              "NO_PLAN": 0.8842100390389928
+            }
+          },
+          "holdout_full": {
+            "raw_macro_f1": 0.5059215535268464,
+            "raw_accuracy": 0.5959337308135699,
+            "raw_per_class_f1": {
+              "K_STORM": 0.4688495557206689,
+              "Q_EXP": 0.5763165514920525,
+              "OUTPOST": 0.7242156217584795,
+              "ROOK_FILE": 0.5074335601489279,
+              "CHAIN_UNDERMINE": 0.13447968760704254,
+              "NO_PLAN": 0.6242343444339074
+            },
+            "bias_macro_f1": 0.5502471672991179,
+            "bias_accuracy": 0.6836280714621413,
+            "bias_per_class_f1": {
+              "K_STORM": 0.5085041079733551,
+              "Q_EXP": 0.591700999003689,
+              "OUTPOST": 0.7195465870821126,
+              "ROOK_FILE": 0.5563427264351749,
+              "CHAIN_UNDERMINE": 0.18422516408944264,
+              "NO_PLAN": 0.7411634192109332
+            }
+          }
+        },
+        "999": {
+          "holdout_filtered": {
+            "raw_macro_f1": 0.6695002122112705,
+            "raw_accuracy": 0.79141442686805,
+            "raw_per_class_f1": {
+              "K_STORM": 0.669573394887578,
+              "Q_EXP": 0.7770776610916634,
+              "OUTPOST": 0.8856295603597839,
+              "ROOK_FILE": 0.759435321233074,
+              "CHAIN_UNDERMINE": 0.11023622047244094,
+              "NO_PLAN": 0.8150491152230833
+            },
+            "bias_macro_f1": 0.7231828964983654,
+            "bias_accuracy": 0.8562284220059788,
+            "bias_per_class_f1": {
+              "K_STORM": 0.7409604836001343,
+              "Q_EXP": 0.7963948071993605,
+              "OUTPOST": 0.8956990535521744,
+              "ROOK_FILE": 0.7968306922435363,
+              "CHAIN_UNDERMINE": 0.22325581395348837,
+              "NO_PLAN": 0.8859565284414984
+            }
+          },
+          "holdout_full": {
+            "raw_macro_f1": 0.5048512256263389,
+            "raw_accuracy": 0.5959379458744039,
+            "raw_per_class_f1": {
+              "K_STORM": 0.4700345405700204,
+              "Q_EXP": 0.5788915321802868,
+              "OUTPOST": 0.731366700574128,
+              "ROOK_FILE": 0.500366400457069,
+              "CHAIN_UNDERMINE": 0.12026643641297644,
+              "NO_PLAN": 0.6281817435635528
+            },
+            "bias_macro_f1": 0.553419449706272,
+            "bias_accuracy": 0.6884058429173279,
+            "bias_per_class_f1": {
+              "K_STORM": 0.5120844207420856,
+              "Q_EXP": 0.5892600019434114,
+              "OUTPOST": 0.7245442443312466,
+              "ROOK_FILE": 0.5625873493480655,
+              "CHAIN_UNDERMINE": 0.1850963843866884,
+              "NO_PLAN": 0.7469442974861344
+            }
+          }
+        }
+      }
+    },
+    "export": {
+      "checkpoint": "D:\\AI_Project\\models\\checkpoints\\mindcheck_final.pt",
+      "onnx": "D:\\AI_Project\\models\\checkpoints\\mindcheck_final.onnx",
+      "torchscript": "D:\\AI_Project\\models\\checkpoints\\mindcheck_final.ts.pt",
+      "sidecar": "D:\\AI_Project\\models\\checkpoints\\mindcheck_final.json",
+      "onnx_matches_pytorch": true
+    },
+    "gates": {
+      "G1": true,
+      "G2": true,
+      "G3": true
+    }
+  }
+}

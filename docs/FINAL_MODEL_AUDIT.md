@@ -1,5 +1,8 @@
 # MindCheck — Final Model Audit
 
+> **Update.** This audit covers the original 3,000-game model. The current baseline (Variant C,
+> trained on 80,000 games) is analysed in [VARIANT_C_ANALYSIS.md](VARIANT_C_ANALYSIS.md).
+
 > **Methodology note.** Every claim below is tagged **VERIFIED** (directly
 > reproduced from an existing artifact or source file during this audit),
 > **REPORTED** (present in prior documentation/commit messages but not

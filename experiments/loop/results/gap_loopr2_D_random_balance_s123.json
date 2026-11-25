@@ -1,0 +1,54 @@
+{
+  "variant": "D_random_balance",
+  "seed": 123,
+  "trained_on_sample": {
+    "n": 24000,
+    "accuracy": 0.814375,
+    "macro_f1": 0.8138548466626744,
+    "recall": {
+      "K_STORM": 0.859,
+      "Q_EXP": 0.82725,
+      "OUTPOST": 0.879,
+      "ROOK_FILE": 0.852,
+      "CHAIN_UNDERMINE": 0.738,
+      "NO_PLAN": 0.731
+    }
+  },
+  "train_natural_sample": {
+    "n": 40000,
+    "accuracy": 0.801325,
+    "macro_f1": 0.6884308178028341,
+    "recall": {
+      "K_STORM": 0.8564705882352941,
+      "Q_EXP": 0.8270749085307144,
+      "OUTPOST": 0.8837124988670353,
+      "ROOK_FILE": 0.8419945929708621,
+      "CHAIN_UNDERMINE": 0.7095588235294118,
+      "NO_PLAN": 0.727912387221245
+    }
+  },
+  "val_sample": {
+    "n": 40000,
+    "accuracy": 0.7909,
+    "macro_f1": 0.6716365050308442,
+    "recall": {
+      "K_STORM": 0.8273469387755102,
+      "Q_EXP": 0.826171875,
+      "OUTPOST": 0.8780269859708695,
+      "ROOK_FILE": 0.8185853802900266,
+      "CHAIN_UNDERMINE": 0.5904059040590406,
+      "NO_PLAN": 0.7178918642333276
+    }
+  },
+  "recall_gap_trained_on_minus_val": {
+    "K_STORM": 0.03165306122448974,
+    "Q_EXP": 0.0010781250000000409,
+    "OUTPOST": 0.0009730140291305256,
+    "ROOK_FILE": 0.03341461970997339,
+    "CHAIN_UNDERMINE": 0.1475940959409594,
+    "NO_PLAN": 0.013108135766672357
+  },
+  "mean_recall_gap": 0.03797017527853758,
+  "macro_f1_gap_natural": 0.01679431277198995,
+  "accuracy_gap_natural": 0.010424999999999907
+}
