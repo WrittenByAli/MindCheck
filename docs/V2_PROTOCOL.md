@@ -80,6 +80,12 @@ Round 1 gets a third candidate, `H_allpos_strongreg`: the same data as `F_allpos
 regularization against overfitting (dropout 0.3 → 0.4, weight decay 1e-3 → 3e-3). The winner
 rule, gates and promotion are unchanged and apply to all three candidates.
 
+## Clarification (before any v2 result)
+
+Where the gate table says "uniform training rows", Amendment 1 governs: gates B and D use the
+rows each model actually trained on (for F and H this includes the enriched `CHAIN_UNDERMINE`
+rows), resampled to validation's class mix.
+
 ## Limits that do not change
 
 All labels are rule-engine weak labels. A higher score on them does not show agreement with

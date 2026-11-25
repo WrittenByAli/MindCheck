@@ -280,17 +280,24 @@ def export(winner: str, seed: int, run: Dict[str, Any], sidecar: Dict[str, Any])
         old, keep = CKPT / f"mindcheck_final{suffix}", CKPT / f"mindcheck_v1{suffix}"
         if old.exists() and not keep.exists():
             shutil.copy2(old, keep)
+    if not all((CKPT / f"mindcheck_v1{s}").exists() for s in (".pt", ".onnx", ".ts.pt", ".json")):
+        raise SystemExit("v1 copies are incomplete; refusing to overwrite mindcheck_final.")
     cfg = ft.VARIANTS[winner]
     bias = [run["bias"][c] for c in CLASS_NAMES]
     model = DeployableModel(keep=cfg["keep"], bias=bias, dropout=cfg["dropout"])
     load_checkpoint(ft._ckpt_path(winner, seed, "_v2"), model.backbone)
     model.eval()
-    pt = save_deployable(model, CKPT / "mindcheck_final.pt", {"variant": winner, "seed": seed})
-    onnx_path = export_to_onnx(model, CKPT / "mindcheck_final.onnx")
-    if not verify_onnx_matches(load_deployable(pt), onnx_path):
-        raise SystemExit("ONNX export does not match PyTorch output.")
-    export_to_torchscript(model, CKPT / "mindcheck_final.ts.pt")
-    _write(CKPT / "mindcheck_final.json", sidecar)
+    # Write and verify everything under staging names first, so a failure can never
+    # leave a mixed v1/v2 set behind under the final names.
+    stage = {s: CKPT / f"mindcheck_v2_staging{s}" for s in (".pt", ".onnx", ".ts.pt", ".json")}
+    pt = save_deployable(model, stage[".pt"], {"variant": winner, "seed": seed})
+    export_to_onnx(model, stage[".onnx"])
+    if not verify_onnx_matches(load_deployable(pt), stage[".onnx"]):
+        raise SystemExit("ONNX export does not match PyTorch output; v1 left in place.")
+    export_to_torchscript(model, stage[".ts.pt"])
+    _write(stage[".json"], sidecar)
+    for suffix, path in stage.items():
+        path.replace(CKPT / f"mindcheck_final{suffix}")
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -307,7 +314,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     if hasattr(ctypes, "windll"):  # keep Windows awake while running only
         ctypes.windll.kernel32.SetThreadExecutionState(0x80000001)
 
-    b0 = fold_mean(_read(B0_BIAS))
+    b0_fit = _read(B0_BIAS)
+    if (b0_fit.get("variant"), b0_fit.get("seed"), b0_fit.get("tag")) != (
+        V1["variant"],
+        V1["seed"],
+        V1["tag"],
+    ):
+        raise SystemExit(f"{B0_BIAS} is not for the v1 checkpoint {V1}.")
+    b0 = fold_mean(b0_fit)
     round1 = {v: run_seed(v, 42) for v in CANDIDATES}
     winner = choose_winner(
         {v: r["score"] for v, r in round1.items()},
