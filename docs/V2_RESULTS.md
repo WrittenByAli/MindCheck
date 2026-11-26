@@ -14,7 +14,8 @@ the train/validation accuracy gap) and passed every other blocking gate. It is s
 `G_allpos_uniform`, seed 42. It uses v1's architecture and hyperparameters (4-ply input, dropout
 0.3, weight decay 1e-3, mirror augmentation, random class balancing), and trains on **unfiltered**
 positions: up to 30 random positions per training game from ply 12, with no confidence or material
-filter. Training data: 55,866 games, 1.65M positions, of which 968,901 remained after balancing.
+filter. Training data: 55,866 games, 1.65M positions, of which 973,040 remained after balancing (an earlier version of this file wrongly
+gave v1's figure, 968,901).
 Every annotation game and identical model input was excluded.
 
 ## Unseen games: second fresh holdout
@@ -41,7 +42,7 @@ All positions, per-class F1:
 | `K_STORM` | 0.522 | 0.550 |
 | `CHAIN_UNDERMINE` | 0.179 | 0.241 |
 
-**v2 is better on unselected positions** (+2.7 points against v1 as shipped), and better in every
+**v2 is better on unselected positions** (+2.9 points against v1 as shipped), and better in every
 class. **v1 is better on filtered positions** (−1.5 points for v2), the population v1 was trained
 on.
 
@@ -73,8 +74,11 @@ Round 1, seed 42, unfiltered validation:
 - Oversampling the rare class caused memorization without improving its score.
 - Stronger dropout and weight decay did not reduce that gap.
 - Removing the oversampling reduced it most.
-- The remaining gap is concentrated in `CHAIN_UNDERMINE`, where earlier analysis found about a
-  third of labels depend on moves the model cannot see.
+- The remaining gap is concentrated in `CHAIN_UNDERMINE`. On unfiltered validation, 44% of its
+  labels have no evidence in past moves (about a third on filtered data).
+
+A later diagnostic, [V2_ACCURACY_INVESTIGATION.md](V2_ACCURACY_INVESTIGATION.md), compares both
+models with a rule-engine baseline that sees only past moves. v2's margin over it is small.
 
 ## Limitations
 
