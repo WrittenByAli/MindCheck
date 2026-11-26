@@ -1,0 +1,46 @@
+{
+  "winner": "G_allpos_uniform",
+  "chosen_seed": 42,
+  "gates": {
+    "A": {
+      "passed": true,
+      "mean": 0.5801298692467539,
+      "b0": 0.5594752343873117
+    },
+    "B": {
+      "passed": false,
+      "failed_seeds": [
+        42,
+        123,
+        999
+      ]
+    },
+    "C": {
+      "passed": true,
+      "std": 0.001685023115285406
+    },
+    "D": {
+      "passed": false,
+      "failed_seeds": [
+        42,
+        123,
+        999
+      ],
+      "blocks_promotion": false
+    },
+    "E": {
+      "passed": true,
+      "abs_diff": {
+        "42": 0.0008398692206693648,
+        "123": 0.002292939750207168,
+        "999": 0.0012924229397592857
+      }
+    },
+    "F": {
+      "passed": true,
+      "mean_biased": 0.5783060456698993,
+      "b0_biased": 0.5599666305354324
+    }
+  },
+  "promoted": false
+}
